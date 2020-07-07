@@ -245,9 +245,9 @@ public class MainActivity extends AppCompatActivity {
             img.setImageURI(imageUri);
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                Bitmap lastBitmap = null;
-                lastBitmap = bitmap;
-                image2 = getStringImage(lastBitmap);
+                Bitmap lsBitmap = null;
+                lsBitmap = bitmap;
+                image2 = getStringImage(lsBitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
