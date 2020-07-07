@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Portfolio Creator</string>
+
+    <string name="editor_activity_title_new_data">Add Data</string>
+
+    <string name="editor_activity_title_edit_data">Edit Data</string>
+
+    <string name="editor_insert_data_failed">Error with saving data</string>
+
+    <string name="editor_insert_data_successful">Data saved</string>
+
+    <!-- Toast message in editor when current data was successfully updated [CHAR LIMIT=NONE] -->
+    <string name="editor_update_data_successful">Data updated</string>
+
+    <!-- Toast message in editor when current data has failed to be updated [CHAR LIMIT=NONE] -->
+    <string name="editor_update_data_failed">Error with updating data</string>
+
+    <string name="unsaved_changes_dialog_msg" />
+    <string name="keep_editing" />
+    <string name="discard" />
+
+    <!-- Dialog message to ask the user to confirm deleting the current pet [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Delete this data?</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current pet [CHAR LIMIT=20] -->
+    <string name="delete">Delete</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
+
+    <string name="editor_delete_data_failed">Error with deleting data</string>
+
+    <string name="editor_delete_data_successful">Data deleted</string>
+</resources>
