@@ -180,6 +180,7 @@
                         android:hint="Name of Institute">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_clgName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -197,6 +198,7 @@
                         android:hint="Degree">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_clgDegree"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -214,6 +216,7 @@
                         android:hint="Year">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_clgYear"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -267,6 +270,7 @@
                         android:hint="Name of School/Institute">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_10SchoolName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -284,6 +288,7 @@
                         android:hint="Board">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_10Board"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -301,6 +306,7 @@
                         android:hint="Year">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_10Year"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -334,6 +340,7 @@
                         android:hint="Name of School/Institute">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_12SchoolName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -351,6 +358,7 @@
                         android:hint="Board">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_12Board"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -368,6 +376,7 @@
                         android:hint="Year">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_12Year"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -399,6 +408,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/edt_git"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/github"
@@ -406,6 +416,7 @@
                 android:hint="GitHub"/>
 
             <EditText
+                android:id="@+id/edt_fb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/facebook"
@@ -413,11 +424,12 @@
                 android:hint="Facebook"/>
 
             <EditText
+                android:id="@+id/edt_linkedIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/linkedin"
                 android:drawablePadding="5dp"
-                android:hint="Linkedin"/>
+                android:hint="LinkedIn"/>
 
         </LinearLayout>
 
@@ -448,6 +460,16 @@
             android:layout_gravity="center"
             android:layout_margin="16dp"
             android:text="Password :- "
+            android:textColor="@android:color/black"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/txt_token"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:text="Token :- "
             android:textColor="@android:color/black"
             android:textSize="18dp"/>
 

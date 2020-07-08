@@ -13,14 +13,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterPage extends AppCompatActivity {
 
-    EditText email,password;
+    EditText email,password,name;
     Button btn_save;
 
 
     SharedPreferences sharedPreferences;
-    SharedPreferences sharedPreferences1;
+//    SharedPreferences sharedPreferences1;
 
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_EMAIL = "email";
@@ -31,6 +42,7 @@ public class RegisterPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
+        name = (EditText) findViewById(R.id.edt_name);
         email = (EditText) findViewById(R.id.edt_email);
         password = (EditText) findViewById(R.id.edt_password);
         btn_save = (Button) findViewById(R.id.btn_save);
@@ -40,13 +52,20 @@ public class RegisterPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Log.d("TAG!", "check: ");
+                String sName    = name.getText().toString();
                 String sEmail    = email.getText().toString();
                 String sPassword = password.getText().toString();
 
-                if(sEmail.isEmpty() && sPassword.isEmpty())
+                if(sEmail.isEmpty() && sPassword.isEmpty() && sName.isEmpty())
                 {
 
                     Toast.makeText(RegisterPage.this,"Enter Data", Toast.LENGTH_SHORT).show();
+                }
+
+                else if(sName.isEmpty())
+                {
+
+                    Toast.makeText(RegisterPage.this,"Enter Name", Toast.LENGTH_SHORT).show();
                 }
 
                 else if(sEmail.isEmpty())
@@ -61,6 +80,45 @@ public class RegisterPage extends AppCompatActivity {
                 }
                 else
                 {
+
+                    RequestQueue queue = Volley.newRequestQueue(RegisterPage.this);
+                    String url ="https://27b143a40c5b.ngrok.io/storeuser";
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.d("TAG", "onResponse: " + response);
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.d("TAG", "onResponse: " + error.toString());
+                                }
+                            }
+                    ){
+                        @Override
+                        protected Map<String, String> getParams()  {
+                            Map<String,String> map = new HashMap<String,String>();
+                            map.put("name",sName);
+                            map.put("username",sEmail);
+                            map.put("password",sPassword);
+
+
+                            return map;
+                        }
+
+//                    @Override
+//                    public String getBodyContentType() {
+//                        return "multipart";
+//                    }
+                    };
+
+                    stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                            5000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    queue.add(stringRequest);
                     sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();

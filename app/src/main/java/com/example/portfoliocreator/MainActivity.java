@@ -3,35 +3,27 @@ package com.example.portfoliocreator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentUris;
-import android.content.ContentValues;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
-
-import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,16 +32,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONObject;
-
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -59,27 +43,37 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Progress Bar
+    ProgressDialog progressDialog;
+
     // Image picker
     ImageView img;
     Button btn_add_image;
     private static final int PICK_IMAGE = 1;
     Uri imageUri;
+    String image2;
 
     //main activity
-    EditText et,lt,et1,lt1,about;
-    Button bt,bt1;
+    EditText et,lt,et1,lt1;
+    Button addbt,addbt1;
     ListView lv,lv1;
+
+    EditText about, clgName, clgDegree, clgYear, school10Name, board10, year10, school12Name, board12, year12;
+    EditText git, fb, linkedIn;
+
     Button create;
-    String image2;
 
 
 
     String[] ListElements = new String[] { };
+    //String[] ListDesc = new String[] {};
     String[] ListElements1 = new String[] { };
+    //String[] ListDesc1 = new String[] {};
 
 
     //Shared Preference
     TextView emailId,password;
+    TextView token;
     Button logout;
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
@@ -97,13 +91,34 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        create = (Button) findViewById(R.id.btn_create);
         about = (EditText) findViewById(R.id.edt_about);
+
+        //Clg Details
+        clgName = (EditText) findViewById(R.id.edt_clgName);
+        clgDegree = (EditText) findViewById(R.id.edt_clgDegree);
+        clgYear = (EditText) findViewById(R.id.edt_clgYear);
+
+        // 10th School Details
+        school10Name = (EditText) findViewById(R.id.edt_10SchoolName);
+        board10 = (EditText) findViewById(R.id.edt_10Board);
+        year10 = (EditText) findViewById(R.id.edt_10Year);
+
+        // 12th School Details
+        school12Name = (EditText) findViewById(R.id.edt_12SchoolName);
+        board12 = (EditText) findViewById(R.id.edt_12Board);
+        year12 = (EditText) findViewById(R.id.edt_12Year);
+
+        git = (EditText) findViewById(R.id.edt_git);
+        fb = (EditText) findViewById(R.id.edt_fb);
+        linkedIn = (EditText) findViewById(R.id.edt_linkedIn);
+
+        create = (Button) findViewById(R.id.btn_create);
 
 
         //Shared Preference
         emailId = (TextView) findViewById(R.id.txt_emailId);
         password = (TextView) findViewById(R.id.txt_password);
+        token = (TextView) findViewById(R.id.txt_token);
         logout = (Button) findViewById(R.id.btn_logout);
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
@@ -129,16 +144,44 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // image picker
+        img = (ImageView) findViewById(R.id.img_view);
+        btn_add_image = (Button) findViewById(R.id.add_img);
+
+        btn_add_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
+
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                //Progress Bar
+                progressDialog = new ProgressDialog(MainActivity.this);
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progress_dialog);
+                progressDialog.getWindow().setBackgroundDrawableResource(
+                        android.R.color.transparent
+                );
+
+                Log.d("TAG", "imgStr : "+ image2);
+
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                String url ="https://9e7b9dd97ead.ngrok.io/testimg";
+                String url ="https://27b143a40c5b.ngrok.io/storeresume";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
+
+                                String[] sToken = response.split(" ");
+                                token.setText("Token :- "+sToken);
+//                                for (String a : sToken)
+//                                    System.out.println(a);
+
                                 Log.d("TAG", "onResponse: " + response);
                             }
                         },
@@ -151,26 +194,61 @@ public class MainActivity extends AppCompatActivity {
                 ){
                     @Override
                     protected Map<String, String> getParams()  {
-                        Map<String,String> map = new HashMap<String, String>();
-                        map.put("image","image2");
+                        Map<String,String> map = new HashMap<String,String>();
+                        map.put("image",image2);
+                        map.put("about",about.getText().toString());
+                        map.put("collegename",clgName.getText().toString());
+                        map.put("collegeaddr",clgDegree.getText().toString());
+                        map.put("collegemarks",clgYear.getText().toString());
+
+                        map.put("twelthname",school12Name.getText().toString());
+                        map.put("twelthaddr",board12.getText().toString());
+                        map.put("twelthmarks",year12.getText().toString());
+
+                        map.put("tenthname",school10Name.getText().toString());
+                        map.put("tenthaddr",board10.getText().toString());
+                        map.put("tenthmarks",year10.getText().toString());
+
+                        Map<String,String> nestmap = new HashMap<String, String>();
+                        nestmap.put("github",git.getText().toString());
+                        nestmap.put("facebook",fb.getText().toString());
+                        nestmap.put("linkedin",linkedIn.getText().toString());
+
+//                        map.put("links",nestmap);
+
+
+//                                about,
+//                                skillname,skilldesc,
+//                                tenthname,tenthaddr,tenthmarks,
+//                                twelthname,twelthaddr,twelthmarks,
+//                                collegename,collegeaddr,collegemarks,
+//                                links
+
+
                         return map;
                     }
 
-                    @Override
-                    public String getBodyContentType() {
-                        return "multipart";
-                    }
+//                    @Override
+//                    public String getBodyContentType() {
+//                        return "multipart";
+//                    }
                 };
+
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        5000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 queue.add(stringRequest);
             }
+
         });
 
 
 
-        // main activity
+        // Technical Skills
         et = (EditText) findViewById(R.id.ed_text);
         lt = (EditText) findViewById(R.id.ed_level);
-        bt = (Button) findViewById(R.id.btn_addData);
+        addbt = (Button) findViewById(R.id.btn_addData);
         lv = (ListView) findViewById(R.id.listView_lv);
 
 
@@ -181,18 +259,21 @@ public class MainActivity extends AppCompatActivity {
         lv.setAdapter(adapter);
 
 
-        bt.setOnClickListener(new View.OnClickListener() {
+        addbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListElementsArrayList.add(et.getText().toString()+"\n" +lt.getText().toString());
+                ListElementsArrayList.add(et.getText().toString()+ "\n" +lt.getText().toString());
                 adapter.notifyDataSetChanged();
             }
         });
 
 
+
+
+        // Work Experiences
         et1 = (EditText) findViewById(R.id.ed_text1);
         lt1 = (EditText) findViewById(R.id.ed_level1);
-        bt1 = (Button) findViewById(R.id.btn_addData1);
+        addbt1 = (Button) findViewById(R.id.btn_addData1);
         lv1 = (ListView) findViewById(R.id.listView_lv1);
 
         final List<String> ListElementsArrayList1 = new ArrayList<>(Arrays.asList(ListElements1));
@@ -200,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                 (MainActivity.this, android.R.layout.simple_list_item_1, ListElementsArrayList1);
         lv1.setAdapter(adapter1);
 
-        bt1.setOnClickListener(new View.OnClickListener() {
+        addbt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ListElementsArrayList1.add(et1.getText().toString());
@@ -209,18 +290,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // image picker
-        img = (ImageView) findViewById(R.id.img_view);
-        btn_add_image = (Button) findViewById(R.id.add_img);
-
-        btn_add_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
 
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        progressDialog.dismiss();
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -228,6 +304,8 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.example_menu, menu);
         return true;
     }
+
+
 
     public void openGallery()
     {
@@ -260,4 +338,6 @@ public class MainActivity extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
+
+
 }
