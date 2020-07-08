@@ -125,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
         final String sEmail = sharedPreferences.getString(KEY_EMAIL,null);
         final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
 
-        if(sEmail != null || sPassword != null)
+
+        if(sEmail != null || sPassword != null )
         {
             emailId.setText("Email ID = "+sEmail);
             password.setText("Password = "+sPassword);
@@ -176,12 +177,8 @@ public class MainActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-
-                                String[] sToken = response.split(" ");
+                                String sToken = "hzjbkjkjfnkjzz";
                                 token.setText("Token :- "+sToken);
-//                                for (String a : sToken)
-//                                    System.out.println(a);
-
                                 Log.d("TAG", "onResponse: " + response);
                             }
                         },
@@ -284,8 +281,7 @@ public class MainActivity extends AppCompatActivity {
         addbt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListElementsArrayList1.add(et1.getText().toString());
-                ListElementsArrayList1.add(lt1.getText().toString());
+                ListElementsArrayList1.add(et1.getText().toString()+ "\n" +lt1.getText().toString());
                 adapter1.notifyDataSetChanged();
             }
         });
