@@ -2,6 +2,7 @@ package com.example.portfoliocreator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +26,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterPage extends AppCompatActivity {
+
+    //Progress Bar
+    ProgressDialog progressDialog;
 
     EditText email,password,name;
     Button btn_save;
@@ -51,6 +55,16 @@ public class RegisterPage extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Progress Bar
+                progressDialog = new ProgressDialog(RegisterPage.this);
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progress_dialog);
+                progressDialog.getWindow().setBackgroundDrawableResource(
+                        android.R.color.transparent
+                );
+                //String msg = "Successful";
+
+
                 //Log.d("TAG!", "check: ");
                 String sName    = name.getText().toString();
                 String sEmail    = email.getText().toString();
@@ -91,17 +105,27 @@ public class RegisterPage extends AppCompatActivity {
                                     //String res = "{\"msg\":\"success\",\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoicGthMTIzQGdtYWlsLmNvbSIsIm5hbWUiOiJWaWNreSIsInR5cGUiOiJjdXN0b21lciJ9LCJpYXQiOjE1OTQzNzYyNjYsImV4cCI6MTU5NDczNjI2Nn0.W9E16QUlDfmeZT-bqII-BwYQWkDbOTZicL7Vo85xQ-0\"}";
                                     String[] msg = response.split("\"");
                                     String msg1 = msg[3];
-                                    if(msg1 == "User already exists")
+                                    if(msg1.equals("User already exists"))
                                     {
                                         Toast.makeText(RegisterPage.this,msg1,Toast.LENGTH_SHORT).show();
+                                        if(msg1.equals("User already exists"))
+                                        {
+                                            progressDialog.dismiss();
+                                            Intent intent = new Intent(RegisterPage.this,HomePage.class);
+                                            startActivity(intent);
+                                        }
                                     }
-                                    if(msg1 == "success")
+                                    if(msg1.equals("success"))
                                     {
-                                        String msg2 = msg[3]+ "\n" +msg[7];
+                                        String msg2 = msg[3];//+ "\n" +msg[7];
                                         Toast.makeText(RegisterPage.this,msg2,Toast.LENGTH_SHORT).show();
+                                        if(msg1.equals("success"))
+                                        {
+                                            progressDialog.dismiss();
+                                            Intent intent = new Intent(RegisterPage.this,HomePage.class);
+                                            startActivity(intent);
+                                        }
                                     }
-//                                    String msg2 = msg[3]+ "\n" +msg[7];
-//                                    Toast.makeText(RegisterPage.this,msg2,Toast.LENGTH_SHORT).show();
 
                                     Log.d("TAG", "onResponse: " + response);
                                 }
@@ -141,8 +165,8 @@ public class RegisterPage extends AppCompatActivity {
                     editor.putString(KEY_EMAIL,sEmail);
                     editor.putString(KEY_PASSWORD,sPassword);
                     editor.apply();
-                    Intent intent = new Intent(RegisterPage.this,HomePage.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(RegisterPage.this,HomePage.class);
+//                    startActivity(intent);
                     //Toast.makeText(RegisterPage.this,"Login Successful", Toast.LENGTH_SHORT).show();
                 }
 
