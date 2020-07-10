@@ -168,6 +168,12 @@ public class MainActivity extends AppCompatActivity {
                 progressDialog.getWindow().setBackgroundDrawableResource(
                         android.R.color.transparent
                 );
+                String msg = "Successful";
+
+                if(msg != "Successful")
+                {
+                    progressDialog.dismiss();
+                }
 
                 Log.d("TAG", "imgStr : "+ image2);
 
@@ -177,8 +183,6 @@ public class MainActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                String sToken = "hzjbkjkjfnkjzz";
-                                token.setText("Token :- "+sToken);
                                 Log.d("TAG", "onResponse: " + response);
                             }
                         },

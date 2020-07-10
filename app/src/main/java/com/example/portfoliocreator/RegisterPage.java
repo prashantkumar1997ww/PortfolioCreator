@@ -82,11 +82,27 @@ public class RegisterPage extends AppCompatActivity {
                 {
 
                     RequestQueue queue = Volley.newRequestQueue(RegisterPage.this);
-                    String url ="https://27b143a40c5b.ngrok.io/storeuser";
+                    String url ="https://portfolio-v0.herokuapp.com/storeuser";
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
+                                    //String res = "{\"msg\":\"User already exists\"}";
+                                    //String res = "{\"msg\":\"success\",\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoicGthMTIzQGdtYWlsLmNvbSIsIm5hbWUiOiJWaWNreSIsInR5cGUiOiJjdXN0b21lciJ9LCJpYXQiOjE1OTQzNzYyNjYsImV4cCI6MTU5NDczNjI2Nn0.W9E16QUlDfmeZT-bqII-BwYQWkDbOTZicL7Vo85xQ-0\"}";
+                                    String[] msg = response.split("\"");
+                                    String msg1 = msg[3];
+                                    if(msg1 == "User already exists")
+                                    {
+                                        Toast.makeText(RegisterPage.this,msg1,Toast.LENGTH_SHORT).show();
+                                    }
+                                    if(msg1 == "success")
+                                    {
+                                        String msg2 = msg[3]+ "\n" +msg[7];
+                                        Toast.makeText(RegisterPage.this,msg2,Toast.LENGTH_SHORT).show();
+                                    }
+//                                    String msg2 = msg[3]+ "\n" +msg[7];
+//                                    Toast.makeText(RegisterPage.this,msg2,Toast.LENGTH_SHORT).show();
+
                                     Log.d("TAG", "onResponse: " + response);
                                 }
                             },
@@ -127,7 +143,7 @@ public class RegisterPage extends AppCompatActivity {
                     editor.apply();
                     Intent intent = new Intent(RegisterPage.this,HomePage.class);
                     startActivity(intent);
-                    Toast.makeText(RegisterPage.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(RegisterPage.this,"Login Successful", Toast.LENGTH_SHORT).show();
                 }
 
             }
