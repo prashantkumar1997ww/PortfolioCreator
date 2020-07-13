@@ -463,15 +463,6 @@
             android:textColor="@android:color/black"
             android:textSize="18dp"/>
 
-        <TextView
-            android:id="@+id/txt_token"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:text="Token :- "
-            android:textColor="@android:color/black"
-            android:textSize="18dp"/>
 
         <Button
             android:id="@+id/btn_logout"

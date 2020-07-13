@@ -40,6 +40,7 @@ public class RegisterPage extends AppCompatActivity {
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_TOKEN = "token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +63,13 @@ public class RegisterPage extends AppCompatActivity {
                 progressDialog.getWindow().setBackgroundDrawableResource(
                         android.R.color.transparent
                 );
-                //String msg = "Successful";
 
 
                 //Log.d("TAG!", "check: ");
                 String sName    = name.getText().toString();
                 String sEmail    = email.getText().toString();
                 String sPassword = password.getText().toString();
+                final String[] sToken = new String[1];
 
                 if(sEmail.isEmpty() && sPassword.isEmpty() && sName.isEmpty())
                 {
@@ -102,7 +103,6 @@ public class RegisterPage extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String response) {
                                     //String res = "{\"msg\":\"User already exists\"}";
-                                    //String res = "{\"msg\":\"success\",\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoicGthMTIzQGdtYWlsLmNvbSIsIm5hbWUiOiJWaWNreSIsInR5cGUiOiJjdXN0b21lciJ9LCJpYXQiOjE1OTQzNzYyNjYsImV4cCI6MTU5NDczNjI2Nn0.W9E16QUlDfmeZT-bqII-BwYQWkDbOTZicL7Vo85xQ-0\"}";
                                     String[] msg = response.split("\"");
                                     String msg1 = msg[3];
                                     if(msg1.equals("User already exists"))
@@ -118,6 +118,7 @@ public class RegisterPage extends AppCompatActivity {
                                     if(msg1.equals("success"))
                                     {
                                         String msg2 = msg[3];//+ "\n" +msg[7];
+
                                         Toast.makeText(RegisterPage.this,msg2,Toast.LENGTH_SHORT).show();
                                         if(msg1.equals("success"))
                                         {
@@ -128,6 +129,8 @@ public class RegisterPage extends AppCompatActivity {
                                     }
 
                                     Log.d("TAG", "onResponse: " + response);
+                                    sToken[0] = msg[7];
+                                    Log.d("Tag","token "+sToken[0]);
                                 }
                             },
                             new Response.ErrorListener() {
@@ -164,7 +167,10 @@ public class RegisterPage extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(KEY_EMAIL,sEmail);
                     editor.putString(KEY_PASSWORD,sPassword);
+                    editor.putString(KEY_TOKEN, sToken[0]);
+                   // Log.d("Tag","token "+sToken[0]);
                     editor.apply();
+
 //                    Intent intent = new Intent(RegisterPage.this,HomePage.class);
 //                    startActivity(intent);
                     //Toast.makeText(RegisterPage.this,"Login Successful", Toast.LENGTH_SHORT).show();

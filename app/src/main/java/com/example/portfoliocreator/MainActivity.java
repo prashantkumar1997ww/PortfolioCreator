@@ -32,6 +32,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Progress Bar
     ProgressDialog progressDialog;
+    
+    //String token;
 
     // Image picker
     ImageView img;
@@ -66,19 +72,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     String[] ListElements = new String[] { };
-    //String[] ListDesc = new String[] {};
     String[] ListElements1 = new String[] { };
-    //String[] ListDesc1 = new String[] {};
 
 
     //Shared Preference
     TextView emailId,password;
-    TextView token;
     Button logout;
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_TOKEN = "token";
 
 
     @Override
@@ -90,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+        JSONObject expJson = new JSONObject();
+        JSONObject skillJson = new JSONObject();
 
         about = (EditText) findViewById(R.id.edt_about);
 
@@ -118,12 +124,14 @@ public class MainActivity extends AppCompatActivity {
         //Shared Preference
         emailId = (TextView) findViewById(R.id.txt_emailId);
         password = (TextView) findViewById(R.id.txt_password);
-        token = (TextView) findViewById(R.id.txt_token);
         logout = (Button) findViewById(R.id.btn_logout);
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
         final String sEmail = sharedPreferences.getString(KEY_EMAIL,null);
         final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
+        final String sToken = sharedPreferences.getString(KEY_TOKEN,null);
+        Log.d("Tag","token "+sToken);
+
 
 
         if(sEmail != null || sPassword != null )
@@ -168,52 +176,118 @@ public class MainActivity extends AppCompatActivity {
                 progressDialog.getWindow().setBackgroundDrawableResource(
                         android.R.color.transparent
                 );
-                String msg = "Successful";
-
-                if(msg != "Successful")
-                {
-                    progressDialog.dismiss();
-                }
+                
 
                 Log.d("TAG", "imgStr : "+ image2);
 
+                JSONObject mainJson  = new JSONObject();
+
+                try {
+                    mainJson.put("image",image2);
+                    mainJson.put("about",about.getText().toString());
+
+                    mainJson.put("skills",skillJson);
+                    mainJson.put("experience",expJson);
+
+                    JSONObject college = new JSONObject();
+                    college.put("collegename",clgName.getText().toString());
+                    college.put("collegeaddr",clgDegree.getText().toString());
+                    college.put("collegemarks",clgYear.getText().toString());
+                    mainJson.put("college",college);
+
+                    JSONObject school12 = new JSONObject();
+                    school12.put("twelthname",school12Name.getText().toString());
+                    school12.put("twelthaddr",board12.getText().toString());
+                    school12.put("twelthmarks",year12.getText().toString());
+                    mainJson.put("twelth",school12);
+
+
+                    JSONObject school10 = new JSONObject();
+                    school10.put("tenthname",school10Name.getText().toString());
+                    school10.put("tenthaddr",board10.getText().toString());
+                    school10.put("tenthmarks",year10.getText().toString());
+                    mainJson.put("tenth",school10);
+
+                    JSONObject link = new JSONObject();
+                    link.put("github",git.getText().toString());
+                    link.put("facebook",fb.getText().toString());
+                    link.put("linkedin",linkedIn.getText().toString());
+                    mainJson.put("links",link);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                String url ="https://27b143a40c5b.ngrok.io/storeresume";
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.d("TAG", "onResponse: " + response);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d("TAG", "onResponse: " + error.toString());
-                            }
-                        }
-                ){
+                String url ="https://portfolio-v0.herokuapp.com/storeresume";
+
+                JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, mainJson,
+                        new Response.Listener<JSONObject>() {
                     @Override
-                    protected Map<String, String> getParams()  {
-                        Map<String,String> map = new HashMap<String,String>();
-                        map.put("image",image2);
-                        map.put("about",about.getText().toString());
-                        map.put("collegename",clgName.getText().toString());
-                        map.put("collegeaddr",clgDegree.getText().toString());
-                        map.put("collegemarks",clgYear.getText().toString());
+                    public void onResponse(JSONObject response) {
+                        String msg = response.toString();
+                        String[] msg1 =  msg.split("\"");
+                        String msg2 = msg1[3];
+                        //"msg":"api touched"
+                        if(msg2.equals("api touched"))
+                        {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(MainActivity.this,msg2, Toast.LENGTH_SHORT).show();
+                        Log.d("TAG",response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("TAG",error.toString());
+                    }
+                }){
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("x-auth-token", sToken);
+                        return headers;
+                    }
+                };
 
-                        map.put("twelthname",school12Name.getText().toString());
-                        map.put("twelthaddr",board12.getText().toString());
-                        map.put("twelthmarks",year12.getText().toString());
 
-                        map.put("tenthname",school10Name.getText().toString());
-                        map.put("tenthaddr",board10.getText().toString());
-                        map.put("tenthmarks",year10.getText().toString());
+                queue.add(jsonRequest);
 
-                        Map<String,String> nestmap = new HashMap<String, String>();
-                        nestmap.put("github",git.getText().toString());
-                        nestmap.put("facebook",fb.getText().toString());
-                        nestmap.put("linkedin",linkedIn.getText().toString());
+
+//                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                Log.d("TAG", "onResponse: " + response);
+//                            }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                Log.d("TAG", "onResponse: " + error.toString());
+//                            }
+//                        }
+//                ){
+//                    @Override
+//                    protected Map<String, String> getParams()  {
+//                        Map<String,String> map = new HashMap<String,String>();
+//                        map.put("image",image2);
+//                        map.put("about",about.getText().toString());
+//                        map.put("collegename",clgName.getText().toString());
+//                        map.put("collegeaddr",clgDegree.getText().toString());
+//                        map.put("collegemarks",clgYear.getText().toString());
+//
+//                        map.put("twelthname",school12Name.getText().toString());
+//                        map.put("twelthaddr",board12.getText().toString());
+//                        map.put("twelthmarks",year12.getText().toString());
+//
+//                        map.put("tenthname",school10Name.getText().toString());
+//                        map.put("tenthaddr",board10.getText().toString());
+//                        map.put("tenthmarks",year10.getText().toString());
+//
+//                        Map<String,String> nestmap = new HashMap<String, String>();
+//                        nestmap.put("github",git.getText().toString());
+//                        nestmap.put("facebook",fb.getText().toString());
+//                        nestmap.put("linkedin",linkedIn.getText().toString());
 
 //                        map.put("links",nestmap);
 
@@ -226,20 +300,20 @@ public class MainActivity extends AppCompatActivity {
 //                                links
 
 
-                        return map;
-                    }
+//                        return map;
+//                    }
 
 //                    @Override
 //                    public String getBodyContentType() {
 //                        return "multipart";
 //                    }
-                };
+//                };
 
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        5000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                queue.add(stringRequest);
+//                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+//                        5000,
+//                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//                queue.add(stringRequest);
             }
 
         });
@@ -263,6 +337,11 @@ public class MainActivity extends AppCompatActivity {
         addbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    skillJson.put(et.getText().toString(),lt.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 ListElementsArrayList.add(et.getText().toString()+ "\n" +lt.getText().toString());
                 adapter.notifyDataSetChanged();
             }
@@ -285,6 +364,11 @@ public class MainActivity extends AppCompatActivity {
         addbt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    expJson.put(et1.getText().toString(),lt1.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 ListElementsArrayList1.add(et1.getText().toString()+ "\n" +lt1.getText().toString());
                 adapter1.notifyDataSetChanged();
             }
