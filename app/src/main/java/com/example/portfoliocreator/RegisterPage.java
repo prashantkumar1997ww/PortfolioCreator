@@ -102,36 +102,36 @@ public class RegisterPage extends AppCompatActivity {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    //String res = "{\"msg\":\"User already exists\"}";
                                     String[] msg = response.split("\"");
                                     String msg1 = msg[3];
-                                    if(msg1.equals("User already exists"))
-                                    {
-                                        Toast.makeText(RegisterPage.this,msg1,Toast.LENGTH_SHORT).show();
-                                        if(msg1.equals("User already exists"))
-                                        {
-                                            progressDialog.dismiss();
-                                            Intent intent = new Intent(RegisterPage.this,HomePage.class);
-                                            startActivity(intent);
-                                        }
-                                    }
                                     if(msg1.equals("success"))
                                     {
-                                        String msg2 = msg[3];//+ "\n" +msg[7];
+                                        String msg2 = msg[3]+ "\n" +msg[7];
 
                                         Toast.makeText(RegisterPage.this,msg2,Toast.LENGTH_SHORT).show();
-                                        if(msg1.equals("success"))
-                                        {
-                                            progressDialog.dismiss();
-                                            Intent intent = new Intent(RegisterPage.this,HomePage.class);
-                                            startActivity(intent);
-                                        }
-                                    }
+                                        sToken[0] = msg[7];
+                                        Log.d("Tag","token "+sToken[0]);
+                                        sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-                                    Log.d("TAG", "onResponse: " + response);
-                                    sToken[0] = msg[7];
-                                    Log.d("Tag","token "+sToken[0]);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString(KEY_EMAIL,sEmail);
+                                        editor.putString(KEY_PASSWORD,sPassword);
+                                        editor.putString(KEY_TOKEN, sToken[0]);
+                                        Log.d("Tag","token "+sToken[0]);
+                                        editor.apply();
+
+                                        progressDialog.dismiss();
+                                        Intent intent = new Intent(RegisterPage.this,HomePage.class);
+                                        startActivity(intent);
+
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(RegisterPage.this,msg1,Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
+                                    }
                                 }
+
                             },
                             new Response.ErrorListener() {
                                 @Override
@@ -162,14 +162,14 @@ public class RegisterPage extends AppCompatActivity {
                             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     queue.add(stringRequest);
-                    sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(KEY_EMAIL,sEmail);
-                    editor.putString(KEY_PASSWORD,sPassword);
-                    editor.putString(KEY_TOKEN, sToken[0]);
-                   // Log.d("Tag","token "+sToken[0]);
-                    editor.apply();
+//                    sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString(KEY_EMAIL,sEmail);
+//                    editor.putString(KEY_PASSWORD,sPassword);
+//                    editor.putString(KEY_TOKEN, sToken[0]);
+//                   // Log.d("Tag","token "+sToken[0]);
+//                    editor.apply();
 
 //                    Intent intent = new Intent(RegisterPage.this,HomePage.class);
 //                    startActivity(intent);

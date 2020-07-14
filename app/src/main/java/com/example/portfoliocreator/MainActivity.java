@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Shared Preference
-    TextView emailId,password;
+    TextView emailId,password,link;
     Button logout;
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         //Shared Preference
         emailId = (TextView) findViewById(R.id.txt_emailId);
         password = (TextView) findViewById(R.id.txt_password);
+        link = (TextView) findViewById(R.id.txt_link);
         logout = (Button) findViewById(R.id.btn_logout);
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
@@ -176,9 +177,6 @@ public class MainActivity extends AppCompatActivity {
                 progressDialog.getWindow().setBackgroundDrawableResource(
                         android.R.color.transparent
                 );
-                
-
-                Log.d("TAG", "imgStr : "+ image2);
 
                 JSONObject mainJson  = new JSONObject();
 
@@ -188,24 +186,25 @@ public class MainActivity extends AppCompatActivity {
 
                     mainJson.put("skills",skillJson);
                     mainJson.put("experience",expJson);
+                    mainJson.put("x-auth-token", sToken);
 
                     JSONObject college = new JSONObject();
-                    college.put("collegename",clgName.getText().toString());
-                    college.put("collegeaddr",clgDegree.getText().toString());
-                    college.put("collegemarks",clgYear.getText().toString());
+                    college.put("name",clgName.getText().toString());
+                    college.put("address",clgDegree.getText().toString());
+                    college.put("marks",clgYear.getText().toString());
                     mainJson.put("college",college);
 
                     JSONObject school12 = new JSONObject();
-                    school12.put("twelthname",school12Name.getText().toString());
-                    school12.put("twelthaddr",board12.getText().toString());
-                    school12.put("twelthmarks",year12.getText().toString());
+                    school12.put("name",school12Name.getText().toString());
+                    school12.put("address",board12.getText().toString());
+                    school12.put("marks",year12.getText().toString());
                     mainJson.put("twelth",school12);
 
 
                     JSONObject school10 = new JSONObject();
-                    school10.put("tenthname",school10Name.getText().toString());
-                    school10.put("tenthaddr",board10.getText().toString());
-                    school10.put("tenthmarks",year10.getText().toString());
+                    school10.put("name",school10Name.getText().toString());
+                    school10.put("address",board10.getText().toString());
+                    school10.put("marks",year10.getText().toString());
                     mainJson.put("tenth",school10);
 
                     JSONObject link = new JSONObject();
@@ -223,15 +222,27 @@ public class MainActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        String msg = response.toString();
-                        String[] msg1 =  msg.split("\"");
-                        String msg2 = msg1[3];
-                        //"msg":"api touched"
-                        if(msg2.equals("api touched"))
-                        {
-                            progressDialog.dismiss();
+                        String msg = null;
+                        try {
+                            msg = (String) response.get("msg");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        Toast.makeText(MainActivity.this,msg2, Toast.LENGTH_SHORT).show();
+                        if(msg.equals("success"))
+                        {
+                            String sitelink = null;
+                            try {
+                                sitelink = (String) response.get("sitelink");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(MainActivity.this,sitelink, Toast.LENGTH_SHORT).show();
+                            link.setText("Link :- "+sitelink);
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this,msg, Toast.LENGTH_SHORT).show();
+                        }
+                        progressDialog.dismiss();
                         Log.d("TAG",response.toString());
                     }
                 }, new Response.ErrorListener() {
@@ -244,10 +255,14 @@ public class MainActivity extends AppCompatActivity {
                     public Map<String, String> getHeaders() {
                         HashMap<String, String> headers = new HashMap<String, String>();
                         headers.put("Content-Type", "application/json");
-                        headers.put("x-auth-token", sToken);
                         return headers;
                     }
                 };
+
+                jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        10000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
 
                 queue.add(jsonRequest);
