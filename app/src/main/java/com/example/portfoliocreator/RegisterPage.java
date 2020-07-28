@@ -47,6 +47,7 @@ public class RegisterPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
+
         name = (EditText) findViewById(R.id.edt_name);
         email = (EditText) findViewById(R.id.edt_email);
         password = (EditText) findViewById(R.id.edt_password);
@@ -75,23 +76,27 @@ public class RegisterPage extends AppCompatActivity {
                 {
 
                     Toast.makeText(RegisterPage.this,"Enter Data", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
 
                 else if(sName.isEmpty())
                 {
 
                     Toast.makeText(RegisterPage.this,"Enter Name", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
 
                 else if(sEmail.isEmpty())
                 {
 
                     Toast.makeText(RegisterPage.this,"Enter Email", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
                 else if(sPassword.isEmpty())
                 {
 
                     Toast.makeText(RegisterPage.this,"Enter Password", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
                 else
                 {

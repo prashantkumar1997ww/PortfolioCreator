@@ -42,7 +42,7 @@
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:text="Register"/>
+                    android:text="Login and Register"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
