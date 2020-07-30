@@ -116,6 +116,7 @@ public class RegisterPage extends AppCompatActivity {
                                         Toast.makeText(RegisterPage.this,msg2,Toast.LENGTH_SHORT).show();
                                         sToken[0] = msg[7];
                                         Log.d("Tag","token "+sToken[0]);
+
                                         sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -151,7 +152,6 @@ public class RegisterPage extends AppCompatActivity {
                             map.put("name",sName);
                             map.put("username",sEmail);
                             map.put("password",sPassword);
-
 
                             return map;
                         }

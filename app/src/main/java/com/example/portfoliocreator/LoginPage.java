@@ -20,7 +20,13 @@ public class LoginPage extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
+        loginEmail = (EditText)findViewById(R.id.login_email);
+        loginPassword = (EditText)findViewById(R.id.login_password);
         btn_register = (Button)findViewById(R.id.btn_register);
+        btn_login = (Button)findViewById(R.id.btn_login);
+
+
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
