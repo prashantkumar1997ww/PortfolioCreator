@@ -15,12 +15,12 @@ import android.widget.Toast;
 
 public class HomePage extends AppCompatActivity {
 
-    CardView create,register,edit;
+    CardView create,profile,edit;
 
 
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
-    private static final String KEY_EMAIL = "email";
+    private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
 
 
@@ -31,27 +31,27 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         create = (CardView) findViewById(R.id.crd_create);
-        register = (CardView) findViewById(R.id.crd_register);
+        profile = (CardView) findViewById(R.id.crd_profile);
         edit = (CardView) findViewById(R.id.crd_edit);
 
 
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        final String sEmail = sharedPreferences.getString(KEY_EMAIL,null);
+        final String sUsername = sharedPreferences.getString(KEY_USERNAME,null);
         final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(sEmail != null && sPassword != null)
+                if(sUsername != null && sPassword != null)
                 {
                     Intent intent = new Intent(HomePage.this,MainActivity.class);
                     startActivity(intent);
                 }
                 else
                 {
-                    Toast.makeText(HomePage.this,"First Register", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomePage.this,"First Login", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -61,7 +61,7 @@ public class HomePage extends AppCompatActivity {
 //            @Override
 //            public void onClick(View v) {
 //
-//                if(sEmail != null && sPassword != null)
+//                if(sUsername != null && sPassword != null)
 //                {
 //                    Intent intent = new Intent(HomePage.this,MainActivity.class);
 //                    startActivity(intent);
@@ -73,7 +73,7 @@ public class HomePage extends AppCompatActivity {
 //            }
 //        });
 
-        register.setOnClickListener(new View.OnClickListener() {
+        profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePage.this,LoginPage.class);

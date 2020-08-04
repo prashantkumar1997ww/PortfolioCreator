@@ -30,17 +30,8 @@ public class RegisterPage extends AppCompatActivity {
     //Progress Bar
     ProgressDialog progressDialog;
 
-    EditText email,password,name;
+    EditText username,password,name;
     Button btn_save;
-
-
-    SharedPreferences sharedPreferences;
-//    SharedPreferences sharedPreferences1;
-
-    private static final String SHARED_PREF_NAME = "mypref";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_PASSWORD = "password";
-    private static final String KEY_TOKEN = "token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +40,7 @@ public class RegisterPage extends AppCompatActivity {
 
 
         name = (EditText) findViewById(R.id.edt_name);
-        email = (EditText) findViewById(R.id.edt_email);
+        username = (EditText) findViewById(R.id.edt_username);
         password = (EditText) findViewById(R.id.edt_password);
         btn_save = (Button) findViewById(R.id.btn_save);
 
@@ -66,13 +57,11 @@ public class RegisterPage extends AppCompatActivity {
                 );
 
 
-                //Log.d("TAG!", "check: ");
                 String sName    = name.getText().toString();
-                String sEmail    = email.getText().toString();
+                String sUsername    = username.getText().toString();
                 String sPassword = password.getText().toString();
-                final String[] sToken = new String[1];
 
-                if(sEmail.isEmpty() && sPassword.isEmpty() && sName.isEmpty())
+                if(sUsername.isEmpty() && sPassword.isEmpty() && sName.isEmpty())
                 {
 
                     Toast.makeText(RegisterPage.this,"Enter Data", Toast.LENGTH_SHORT).show();
@@ -86,10 +75,10 @@ public class RegisterPage extends AppCompatActivity {
                     progressDialog.dismiss();
                 }
 
-                else if(sEmail.isEmpty())
+                else if(sUsername.isEmpty())
                 {
 
-                    Toast.makeText(RegisterPage.this,"Enter Email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterPage.this,"Enter Username", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
                 else if(sPassword.isEmpty())
@@ -102,29 +91,17 @@ public class RegisterPage extends AppCompatActivity {
                 {
 
                     RequestQueue queue = Volley.newRequestQueue(RegisterPage.this);
-                    String url ="https://portfolio-v0.herokuapp.com/storeuser";
+                    String url ="https://portfolio-v0.herokuapp.com/registerUser";
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     String[] msg = response.split("\"");
                                     String msg1 = msg[3];
+                                    Log.d("TAG0", response);
+                                    Log.d("TAG", msg1);
                                     if(msg1.equals("success"))
                                     {
-                                        String msg2 = msg[3]+ "\n" +msg[7];
-
-                                        Toast.makeText(RegisterPage.this,msg2,Toast.LENGTH_SHORT).show();
-                                        sToken[0] = msg[7];
-                                        Log.d("Tag","token "+sToken[0]);
-
-                                        sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString(KEY_EMAIL,sEmail);
-                                        editor.putString(KEY_PASSWORD,sPassword);
-                                        editor.putString(KEY_TOKEN, sToken[0]);
-                                        Log.d("Tag","token "+sToken[0]);
-                                        editor.apply();
 
                                         progressDialog.dismiss();
                                         Intent intent = new Intent(RegisterPage.this,HomePage.class);
@@ -150,7 +127,7 @@ public class RegisterPage extends AppCompatActivity {
                         protected Map<String, String> getParams()  {
                             Map<String,String> map = new HashMap<String,String>();
                             map.put("name",sName);
-                            map.put("username",sEmail);
+                            map.put("username",sUsername);
                             map.put("password",sPassword);
 
                             return map;

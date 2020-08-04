@@ -76,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Shared Preference
-    TextView emailId,password,link;
+    TextView username,password,link;
     Button logout;
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
-    private static final String KEY_EMAIL = "email";
+    private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_TOKEN = "token";
 
@@ -121,22 +121,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Shared Preference
-        emailId = (TextView) findViewById(R.id.txt_emailId);
+        username = (TextView) findViewById(R.id.txt_username);
         password = (TextView) findViewById(R.id.txt_password);
         link = (TextView) findViewById(R.id.txt_link);
         logout = (Button) findViewById(R.id.btn_logout);
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-        final String sEmail = sharedPreferences.getString(KEY_EMAIL,null);
+        final String sUsername = sharedPreferences.getString(KEY_USERNAME,null);
         final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
         final String sToken = sharedPreferences.getString(KEY_TOKEN,null);
         Log.d("Tag","token "+sToken);
 
 
 
-        if(sEmail != null || sPassword != null )
+        if(sUsername != null || sPassword != null )
         {
-            emailId.setText("Email ID = "+sEmail);
+            username.setText("Username = "+sUsername);
             password.setText("Password = "+sPassword);
         }
 
