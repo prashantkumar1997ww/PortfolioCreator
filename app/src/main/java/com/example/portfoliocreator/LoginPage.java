@@ -35,10 +35,10 @@ public class LoginPage extends AppCompatActivity {
     TextView txtRegister;
 
 
+    //  SharedPreferences
     SharedPreferences sharedPreferences;
-//    SharedPreferences sharedPreferences1;
-
     private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_NAME = "name";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_TOKEN = "token";
@@ -110,9 +110,9 @@ public class LoginPage extends AppCompatActivity {
                                     if(msg1.equals("success"))
                                     {
                                         sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString(KEY_USERNAME,sUsername);
+                                        editor.putString(KEY_NAME,sName);
                                         editor.putString(KEY_PASSWORD,sPassword);
                                         editor.putString(KEY_TOKEN,sToken[0]);
                                         editor.apply();
@@ -125,6 +125,7 @@ public class LoginPage extends AppCompatActivity {
                                     }
                                     else
                                     {
+                                        Log.d("TAG", msg1);
                                         Toast.makeText(LoginPage.this,msg1,Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                     }

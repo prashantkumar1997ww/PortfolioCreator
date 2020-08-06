@@ -33,6 +33,7 @@ public class RegisterPage extends AppCompatActivity {
     EditText username,password,name;
     Button btn_save;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,7 @@ public class RegisterPage extends AppCompatActivity {
                 String sName    = name.getText().toString();
                 String sUsername    = username.getText().toString();
                 String sPassword = password.getText().toString();
+
 
                 if(sUsername.isEmpty() && sPassword.isEmpty() && sName.isEmpty())
                 {

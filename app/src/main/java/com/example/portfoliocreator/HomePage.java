@@ -20,8 +20,10 @@ public class HomePage extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
+    private static final String KEY_NAME = "name";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
+    //private static final String KEY_SITELINK = "sitelink";
 
 
 
@@ -37,8 +39,26 @@ public class HomePage extends AppCompatActivity {
 
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        final String sName = sharedPreferences.getString(KEY_NAME,null);
         final String sUsername = sharedPreferences.getString(KEY_USERNAME,null);
         final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
+        //final String sLink = sharedPreferences.getString(KEY_SITELINK,null);
+
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sUsername != null || sName != null)
+                {
+                    Intent intent = new Intent(HomePage.this,ProfilePage.class);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(HomePage.this, LoginPage.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,13 +93,6 @@ public class HomePage extends AppCompatActivity {
 //            }
 //        });
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePage.this,LoginPage.class);
-                startActivity(intent);
-            }
-        });
     }
 
 }

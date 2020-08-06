@@ -63,15 +63,6 @@
             android:layout_marginRight="50dp">
         </Button>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            android:text="New user?"/>
-
         <TextView
             android:id="@+id/txt_register"
             android:layout_width="wrap_content"
@@ -79,7 +70,7 @@
             android:textSize="20sp"
             android:layout_marginTop="16dp"
             android:layout_gravity="center"
-            android:text="Register First"/>
+            android:text="New user? Register First"/>
 
     </LinearLayout>
 

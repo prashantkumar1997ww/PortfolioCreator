@@ -4,6 +4,7 @@ package com.example.portfoliocreator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -49,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Progress Bar
     ProgressDialog progressDialog;
-    
-    //String token;
+
 
     // Image picker
     ImageView img;
@@ -75,14 +75,18 @@ public class MainActivity extends AppCompatActivity {
     String[] ListElements1 = new String[] { };
 
 
+
+//    TextView username,password,
+//    String link;
+//    Button logout;
+
     //Shared Preference
-    TextView username,password,link;
-    Button logout;
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_SITELINK = "sitelink";
     private static final String KEY_TOKEN = "token";
+//    private static final String KEY_PASSWORD = "password";
+
 
 
     @Override
@@ -121,36 +125,36 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Shared Preference
-        username = (TextView) findViewById(R.id.txt_username);
-        password = (TextView) findViewById(R.id.txt_password);
-        link = (TextView) findViewById(R.id.txt_link);
-        logout = (Button) findViewById(R.id.btn_logout);
+//        username = (TextView) findViewById(R.id.txt_username);
+//        password = (TextView) findViewById(R.id.txt_password);
+//        link = (TextView) findViewById(R.id.txt_link);
+//        logout = (Button) findViewById(R.id.btn_logout);
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-        final String sUsername = sharedPreferences.getString(KEY_USERNAME,null);
-        final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
+//        final String sUsername = sharedPreferences.getString(KEY_USERNAME,null);
+//        final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
         final String sToken = sharedPreferences.getString(KEY_TOKEN,null);
         Log.d("Tag","token "+sToken);
 
 
 
-        if(sUsername != null || sPassword != null )
-        {
-            username.setText("Username = "+sUsername);
-            password.setText("Password = "+sPassword);
-        }
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.commit();
-                finish();
-                Toast.makeText(MainActivity.this,"LogOut Successfully",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        if(sUsername != null || sPassword != null )
+//        {
+//            username.setText("Username = "+sUsername);
+//            password.setText("Password = "+sPassword);
+//        }
+//
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.clear();
+//                editor.commit();
+//                finish();
+//                Toast.makeText(MainActivity.this,"LogOut Successfully",Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         // image picker
@@ -236,7 +240,12 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Toast.makeText(MainActivity.this,sitelink, Toast.LENGTH_SHORT).show();
-                            link.setText("Link :- "+sitelink);
+                            //link.setText("Link :- "+sitelink);
+
+                            sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(KEY_SITELINK,sitelink);
+                            editor.apply();
                         }
                         else{
                             Toast.makeText(MainActivity.this,msg, Toast.LENGTH_SHORT).show();
