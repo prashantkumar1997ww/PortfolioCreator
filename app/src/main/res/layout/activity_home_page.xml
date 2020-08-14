@@ -126,18 +126,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="CONNECT"
+                android:text="CONNECT WITH CREATORS"
                 android:textColor="@android:color/black"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
-
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:src="@drawable/facebook148"/>
 
             <ImageView
                 android:layout_width="0dp"

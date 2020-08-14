@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1"
+                android:maxLength="300"
                 android:scrollHorizontally="true">
 
             </com.google.android.material.textfield.TextInputEditText>
@@ -84,7 +85,7 @@
                 android:id="@+id/listView_lv"
                 android:layout_width="match_parent"
                 android:dividerHeight="10dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:nestedScrollingEnabled="true"
                 />
 
@@ -125,7 +126,7 @@
             <ListView
                 android:id="@+id/listView_lv1"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:dividerHeight="10dp"
                 android:nestedScrollingEnabled="true"
                 />
@@ -195,10 +196,64 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         app:boxStrokeColor="@color/colorAccent"
                         android:layout_marginTop="5dp"
+                        android:hint="Location">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_clgLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorAccent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/colorAccent"
+                        android:layout_marginTop="5dp"
                         android:hint="Degree">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_clgDegree"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorAccent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/colorAccent"
+                        android:layout_marginTop="5dp"
+                        android:hint="Marks">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_clgMarks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorAccent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/colorAccent"
+                        android:layout_marginTop="5dp"
+                        android:hint="Marks metric type">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_clgMarks_type"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -285,10 +340,64 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         app:boxStrokeColor="@color/colorAccent"
                         android:layout_marginTop="5dp"
+                        android:hint="Location">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_10Location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorAccent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/colorAccent"
+                        android:layout_marginTop="5dp"
                         android:hint="Board">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_10Board"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorAccent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/colorAccent"
+                        android:layout_marginTop="5dp"
+                        android:hint="Marks">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_10Marks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorAccent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/colorAccent"
+                        android:layout_marginTop="5dp"
+                        android:hint="Marks metric type">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_10Marks_type"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -355,10 +464,64 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         app:boxStrokeColor="@color/colorAccent"
                         android:layout_marginTop="5dp"
+                        android:hint="Location">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_12Location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorAccent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/colorAccent"
+                        android:layout_marginTop="5dp"
                         android:hint="Board">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_12Board"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorAccent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/colorAccent"
+                        android:layout_marginTop="5dp"
+                        android:hint="Marks">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_12Marks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorAccent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/colorAccent"
+                        android:layout_marginTop="5dp"
+                        android:hint="Marks metric type">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_12Marks_type"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 

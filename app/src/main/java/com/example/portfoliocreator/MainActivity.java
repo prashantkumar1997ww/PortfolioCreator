@@ -64,7 +64,10 @@ public class MainActivity extends AppCompatActivity {
     Button addbt,addbt1;
     ListView lv,lv1;
 
-    EditText about, clgName, clgDegree, clgYear, school10Name, board10, year10, school12Name, board12, year12;
+    EditText about;
+    EditText clgName, clgDegree, clgYear, clgLocation, clgMarks, clgMarksType;
+    EditText school10Name, board10, year10, Location10, Marks10, MarksType10;
+    EditText school12Name, board12, year12, Location12, Marks12, MarksType12;
     EditText git, fb, linkedIn;
 
     Button create;
@@ -103,58 +106,40 @@ public class MainActivity extends AppCompatActivity {
         about = (EditText) findViewById(R.id.edt_about);
 
         //Clg Details
-        clgName = (EditText) findViewById(R.id.edt_clgName);
-        clgDegree = (EditText) findViewById(R.id.edt_clgDegree);
-        clgYear = (EditText) findViewById(R.id.edt_clgYear);
+        clgName = findViewById(R.id.edt_clgName);
+        clgDegree = findViewById(R.id.edt_clgDegree);
+        clgYear = findViewById(R.id.edt_clgYear);
+        clgLocation = findViewById(R.id.edt_clgLocation);
+        clgMarks = findViewById(R.id.edt_clgMarks);
+        clgMarksType = findViewById(R.id.edt_clgMarks_type);
 
         // 10th School Details
-        school10Name = (EditText) findViewById(R.id.edt_10SchoolName);
-        board10 = (EditText) findViewById(R.id.edt_10Board);
-        year10 = (EditText) findViewById(R.id.edt_10Year);
+        school10Name = findViewById(R.id.edt_10SchoolName);
+        board10 = findViewById(R.id.edt_10Board);
+        year10 = findViewById(R.id.edt_10Year);
+        Location10 = findViewById(R.id.edt_10Location);
+        Marks10 = findViewById(R.id.edt_10Marks);
+        MarksType10 = findViewById(R.id.edt_10Marks_type);
 
         // 12th School Details
-        school12Name = (EditText) findViewById(R.id.edt_12SchoolName);
-        board12 = (EditText) findViewById(R.id.edt_12Board);
-        year12 = (EditText) findViewById(R.id.edt_12Year);
+        school12Name = findViewById(R.id.edt_12SchoolName);
+        board12 = findViewById(R.id.edt_12Board);
+        year12 = findViewById(R.id.edt_12Year);
+        Location12 = findViewById(R.id.edt_12Location);
+        Marks12 = findViewById(R.id.edt_12Marks);
+        MarksType12 = findViewById(R.id.edt_12Marks_type);
 
-        git = (EditText) findViewById(R.id.edt_git);
-        fb = (EditText) findViewById(R.id.edt_fb);
-        linkedIn = (EditText) findViewById(R.id.edt_linkedIn);
+        git = findViewById(R.id.edt_git);
+        fb = findViewById(R.id.edt_fb);
+        linkedIn = findViewById(R.id.edt_linkedIn);
 
-        create = (Button) findViewById(R.id.btn_create);
+        create = findViewById(R.id.btn_create);
 
-
-        //Shared Preference
-//        username = (TextView) findViewById(R.id.txt_username);
-//        password = (TextView) findViewById(R.id.txt_password);
-//        link = (TextView) findViewById(R.id.txt_link);
-//        logout = (Button) findViewById(R.id.btn_logout);
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-//        final String sUsername = sharedPreferences.getString(KEY_USERNAME,null);
-//        final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
         final String sToken = sharedPreferences.getString(KEY_TOKEN,null);
         Log.d("Tag","token "+sToken);
 
-
-
-//        if(sUsername != null || sPassword != null )
-//        {
-//            username.setText("Username = "+sUsername);
-//            password.setText("Password = "+sPassword);
-//        }
-//
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.clear();
-//                editor.commit();
-//                finish();
-//                Toast.makeText(MainActivity.this,"LogOut Successfully",Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
 
         // image picker

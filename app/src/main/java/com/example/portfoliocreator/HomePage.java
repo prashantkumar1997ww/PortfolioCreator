@@ -23,7 +23,7 @@ public class HomePage extends AppCompatActivity {
     private static final String KEY_NAME = "name";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
-    //private static final String KEY_SITELINK = "sitelink";
+    private static final String KEY_SITELINK = "sitelink";
 
 
 
@@ -42,7 +42,7 @@ public class HomePage extends AppCompatActivity {
         final String sName = sharedPreferences.getString(KEY_NAME,null);
         final String sUsername = sharedPreferences.getString(KEY_USERNAME,null);
         final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
-        //final String sLink = sharedPreferences.getString(KEY_SITELINK,null);
+        final String sLink = sharedPreferences.getString(KEY_SITELINK,null);
 
 
         profile.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +50,7 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 if(sUsername != null || sName != null)
                 {
-                    Intent intent = new Intent(HomePage.this,ProfilePage.class);
+                    Intent intent = new Intent(HomePage.this, ProfilePage.class);
                     startActivity(intent);
                 }
                 else {
@@ -64,9 +64,9 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(sUsername != null && sPassword != null)
+                if(sUsername != null && sName != null && sLink == null)
                 {
-                    Intent intent = new Intent(HomePage.this,MainActivity.class);
+                    Intent intent = new Intent(HomePage.this, MainActivity.class);
                     startActivity(intent);
                 }
                 else
