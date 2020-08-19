@@ -77,18 +77,11 @@ public class MainActivity extends AppCompatActivity {
     String[] ListElements = new String[] { };
     String[] ListElements1 = new String[] { };
 
-
-
-//    TextView username,password,
-//    String link;
-//    Button logout;
-
     //Shared Preference
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_SITELINK = "sitelink";
     private static final String KEY_TOKEN = "token";
-//    private static final String KEY_PASSWORD = "password";
 
 
 
@@ -260,68 +253,6 @@ public class MainActivity extends AppCompatActivity {
 
                 queue.add(jsonRequest);
 
-
-//                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                Log.d("TAG", "onResponse: " + response);
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                Log.d("TAG", "onResponse: " + error.toString());
-//                            }
-//                        }
-//                ){
-//                    @Override
-//                    protected Map<String, String> getParams()  {
-//                        Map<String,String> map = new HashMap<String,String>();
-//                        map.put("image",image2);
-//                        map.put("about",about.getText().toString());
-//                        map.put("collegename",clgName.getText().toString());
-//                        map.put("collegeaddr",clgDegree.getText().toString());
-//                        map.put("collegemarks",clgYear.getText().toString());
-//
-//                        map.put("twelthname",school12Name.getText().toString());
-//                        map.put("twelthaddr",board12.getText().toString());
-//                        map.put("twelthmarks",year12.getText().toString());
-//
-//                        map.put("tenthname",school10Name.getText().toString());
-//                        map.put("tenthaddr",board10.getText().toString());
-//                        map.put("tenthmarks",year10.getText().toString());
-//
-//                        Map<String,String> nestmap = new HashMap<String, String>();
-//                        nestmap.put("github",git.getText().toString());
-//                        nestmap.put("facebook",fb.getText().toString());
-//                        nestmap.put("linkedin",linkedIn.getText().toString());
-
-//                        map.put("links",nestmap);
-
-
-//                                about,
-//                                skillname,skilldesc,
-//                                tenthname,tenthaddr,tenthmarks,
-//                                twelthname,twelthaddr,twelthmarks,
-//                                collegename,collegeaddr,collegemarks,
-//                                links
-
-
-//                        return map;
-//                    }
-
-//                    @Override
-//                    public String getBodyContentType() {
-//                        return "multipart";
-//                    }
-//                };
-
-//                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-//                        5000,
-//                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//                queue.add(stringRequest);
             }
 
         });
@@ -385,11 +316,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        progressDialog.dismiss();
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -430,6 +356,4 @@ public class MainActivity extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
-
-
 }

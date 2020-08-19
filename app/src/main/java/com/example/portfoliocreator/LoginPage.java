@@ -147,11 +147,6 @@ public class LoginPage extends AppCompatActivity {
 
                             return map;
                         }
-
-//                    @Override
-//                    public String getBodyContentType() {
-//                        return "multipart";
-//                    }
                     };
 
                     stringRequest.setRetryPolicy(new DefaultRetryPolicy(
@@ -159,18 +154,6 @@ public class LoginPage extends AppCompatActivity {
                             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     queue.add(stringRequest);
-//                    sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-//
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putString(KEY_EMAIL,sEmail);
-//                    editor.putString(KEY_PASSWORD,sPassword);
-//                    editor.putString(KEY_TOKEN, sToken[0]);
-//                   // Log.d("Tag","token "+sToken[0]);
-//                    editor.apply();
-
-//                    Intent intent = new Intent(RegisterPage.this,HomePage.class);
-//                    startActivity(intent);
-                    //Toast.makeText(RegisterPage.this,"Login Successful", Toast.LENGTH_SHORT).show();
                 }
 
             }

@@ -76,23 +76,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-
-//        edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if(sUsername != null && sPassword != null)
-//                {
-//                    Intent intent = new Intent(HomePage.this,MainActivity.class);
-//                    startActivity(intent);
-//                }
-//                else
-//                {
-//                    Toast.makeText(HomePage.this,"First Register and Create", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-
     }
 
 }
