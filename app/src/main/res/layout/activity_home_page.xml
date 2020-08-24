@@ -17,32 +17,33 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/crd_profile"
             android:layout_width="180dp"
-            android:layout_height="150dp"
+            android:layout_height="175dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="20dp"
             android:layout_gravity="center"
             android:layout_margin="16dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="99dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_margin="16dp"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/register"/>
+                    android:background="@drawable/register" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:layout_gravity="center"
+                    android:text="Profile"
                     android:textColor="@android:color/black"
-                    android:text="Profile"/>
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -50,7 +51,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/crd_create"
             android:layout_width="180dp"
-            android:layout_height="150dp"
+            android:layout_height="175dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="20dp"
             android:layout_gravity="center"
@@ -73,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
+                    android:textSize="15dp"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
                     android:text="Create Web Portfolio"/>
@@ -83,7 +85,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/crd_edit"
             android:layout_width="180dp"
-            android:layout_height="150dp"
+            android:layout_height="175dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="20dp"
             android:layout_gravity="center"
@@ -106,6 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
+                    android:textSize="15dp"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
                     android:text="Edit Existing Portfolio"/>
