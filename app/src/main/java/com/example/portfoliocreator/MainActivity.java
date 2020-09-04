@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,8 +75,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    String[] ListElements = new String[] { };
-    String[] ListElements1 = new String[] { };
+    public String[] ListElements = new String[] { };
+    public String[] ListElements1 = new String[] { };
+
+    List<String> ListElementsArrayList = new ArrayList<>(Arrays.asList(ListElements));
+    ArrayAdapter<String> adapter;
+
+
+
 
     //Shared Preference
     SharedPreferences sharedPreferences;
@@ -265,11 +272,10 @@ public class MainActivity extends AppCompatActivity {
         addbt = (Button) findViewById(R.id.btn_addData);
         lv = (ListView) findViewById(R.id.listView_lv);
 
+        adapter= new ArrayAdapter<>
+                (MainActivity.this, R.layout.activity_list_view,  R.id.title,ListElementsArrayList);
 
 
-        final List<String> ListElementsArrayList = new ArrayList<>(Arrays.asList(ListElements));
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>
-                (MainActivity.this, android.R.layout.simple_list_item_1, ListElementsArrayList);
         lv.setAdapter(adapter);
 
 
@@ -297,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
 
         final List<String> ListElementsArrayList1 = new ArrayList<>(Arrays.asList(ListElements1));
         final ArrayAdapter<String> adapter1 = new ArrayAdapter<>
-                (MainActivity.this, android.R.layout.simple_list_item_1, ListElementsArrayList1);
+                (MainActivity.this, R.layout.activity_list_view, ListElementsArrayList1);
         lv1.setAdapter(adapter1);
 
         addbt1.setOnClickListener(new View.OnClickListener() {
@@ -314,7 +320,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+
     }
+
+    public void deleteCurrent(View v){
+        ViewGroup prnt = (ViewGroup) v.getParent();
+        TextView txtv = (TextView) prnt.getChildAt(0);
+        ListElementsArrayList.remove(txtv.getText().toString());
+        adapter.notifyDataSetChanged();
+        Log.d("Delete Method", "deleteCurrent: "+txtv.getText().toString());
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -322,6 +339,7 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.example_menu, menu);
         return true;
     }
+
 
 
 
