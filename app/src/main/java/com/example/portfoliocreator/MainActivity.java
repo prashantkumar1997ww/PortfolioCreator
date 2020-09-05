@@ -1,6 +1,7 @@
 package com.example.portfoliocreator;
 
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -81,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
     List<String> ListElementsArrayList = new ArrayList<>(Arrays.asList(ListElements));
     ArrayAdapter<String> adapter;
 
+
+    List<String> ListElementsArrayList1 = new ArrayList<>(Arrays.asList(ListElements1));
+    ArrayAdapter<String> adapter1;
 
 
 
@@ -155,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         create.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
 
@@ -172,8 +178,25 @@ public class MainActivity extends AppCompatActivity {
                     mainJson.put("image",image2);
                     mainJson.put("about",about.getText().toString());
 
+                    ListElementsArrayList.forEach((s) -> {
+                        String skill,desc;
+                        skill = s.split("\n")[0];
+                        desc = s.split("\n")[1];
+                        try {
+                            skillJson.put(skill,desc);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+//                    skillJson.put(et.getText().toString(),lt.getText().toString());
+//                    JSONObject skills = new JSONObject();
+//                    mainJson.put("skills",ListElementsArrayList);
                     mainJson.put("skills",skillJson);
+
+                    JSONObject experiences = new JSONObject();
                     mainJson.put("experience",expJson);
+
+
                     mainJson.put("x-auth-token", sToken);
 
                     JSONObject college = new JSONObject();
@@ -283,16 +306,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    skillJson.put(et.getText().toString(),lt.getText().toString());
-                } catch (JSONException e) {
+//                    skillJson.put(et.getText().toString(),lt.getText().toString());
+                    ListElementsArrayList.add(et.getText().toString()+ "\n\n" +lt.getText().toString());
+                    adapter.notifyDataSetChanged();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                ListElementsArrayList.add(et.getText().toString()+ "\n" +lt.getText().toString());
-                adapter.notifyDataSetChanged();
             }
         });
-
-
 
 
         // Work Experiences
@@ -301,9 +322,11 @@ public class MainActivity extends AppCompatActivity {
         addbt1 = (Button) findViewById(R.id.btn_addData1);
         lv1 = (ListView) findViewById(R.id.listView_lv1);
 
-        final List<String> ListElementsArrayList1 = new ArrayList<>(Arrays.asList(ListElements1));
-        final ArrayAdapter<String> adapter1 = new ArrayAdapter<>
-                (MainActivity.this, R.layout.activity_list_view, ListElementsArrayList1);
+        adapter1= new ArrayAdapter<>
+                (MainActivity.this, R.layout.activity_list_view,  R.id.title,ListElementsArrayList1);
+
+
+
         lv1.setAdapter(adapter1);
 
         addbt1.setOnClickListener(new View.OnClickListener() {
@@ -314,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                ListElementsArrayList1.add(et1.getText().toString()+ "\n" +lt1.getText().toString());
+                ListElementsArrayList1.add(et1.getText().toString()+ "\n\n" +lt1.getText().toString());
                 adapter1.notifyDataSetChanged();
             }
         });
@@ -329,8 +352,11 @@ public class MainActivity extends AppCompatActivity {
         TextView txtv = (TextView) prnt.getChildAt(0);
         ListElementsArrayList.remove(txtv.getText().toString());
         adapter.notifyDataSetChanged();
+        ListElementsArrayList1.remove(txtv.getText().toString());
+        adapter1.notifyDataSetChanged();
         Log.d("Delete Method", "deleteCurrent: "+txtv.getText().toString());
     }
+
 
 
     @Override
