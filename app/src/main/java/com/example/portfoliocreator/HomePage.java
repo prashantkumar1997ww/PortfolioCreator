@@ -69,7 +69,11 @@ public class HomePage extends AppCompatActivity {
                     Intent intent = new Intent(HomePage.this, MainActivity.class);
                     startActivity(intent);
                 }
-                else
+                if(sLink != null)
+                {
+                    Toast.makeText(HomePage.this,"Portfolio Already Created \n Edit Your Portfolio", Toast.LENGTH_SHORT).show();
+                }
+                if(sUsername == null && sName == null)
                 {
                     Toast.makeText(HomePage.this,"First Login", Toast.LENGTH_SHORT).show();
                 }

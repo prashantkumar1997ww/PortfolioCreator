@@ -179,21 +179,30 @@ public class MainActivity extends AppCompatActivity {
                     mainJson.put("about",about.getText().toString());
 
                     ListElementsArrayList.forEach((s) -> {
+                        Log.d("Tag",s);
                         String skill,desc;
                         skill = s.split("\n")[0];
-                        desc = s.split("\n")[1];
+                        desc = s.split("\n")[2];
                         try {
                             skillJson.put(skill,desc);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     });
-//                    skillJson.put(et.getText().toString(),lt.getText().toString());
-//                    JSONObject skills = new JSONObject();
-//                    mainJson.put("skills",ListElementsArrayList);
                     mainJson.put("skills",skillJson);
 
-                    JSONObject experiences = new JSONObject();
+
+                    ListElementsArrayList1.forEach((s) -> {
+                        Log.d("Tag",s);
+                        String job_type,detail;
+                        job_type = s.split("\n")[0];
+                        detail = s.split("\n")[2];
+                        try {
+                            expJson.put(job_type,detail);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
                     mainJson.put("experience",expJson);
 
 
@@ -333,12 +342,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    expJson.put(et1.getText().toString(),lt1.getText().toString());
-                } catch (JSONException e) {
+//                    expJson.put(et1.getText().toString(),lt1.getText().toString());
+                    ListElementsArrayList1.add(et1.getText().toString()+ "\n\n" +lt1.getText().toString());
+                    adapter1.notifyDataSetChanged();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                ListElementsArrayList1.add(et1.getText().toString()+ "\n\n" +lt1.getText().toString());
-                adapter1.notifyDataSetChanged();
             }
         });
 

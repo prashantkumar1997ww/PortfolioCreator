@@ -77,7 +77,7 @@
                     android:textSize="15dp"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:text="Create Web Portfolio"/>
+                    android:text="Create Web \n Portfolio"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -107,11 +107,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:textStyle="bold"
                     android:textSize="15dp"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:text="Edit Existing Portfolio"/>
+                    android:text="Edit Existing \n Portfolio"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

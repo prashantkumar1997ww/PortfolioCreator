@@ -128,6 +128,8 @@ public class LoginPage extends AppCompatActivity {
                                         Log.d("TAG", msg1);
                                         Toast.makeText(LoginPage.this,msg1,Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
+                                        Intent intent = new Intent(LoginPage.this,LoginPage.class);
+                                        startActivity(intent);
                                     }
                                 }
 

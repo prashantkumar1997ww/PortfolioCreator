@@ -102,11 +102,11 @@ public class RegisterPage extends AppCompatActivity {
                                     String msg1 = msg[3];
                                     Log.d("TAG0", response);
                                     Log.d("TAG", msg1);
-                                    if(msg1.equals("success"))
+                                    if(msg1.equals("successfull"))
                                     {
-
+                                        Toast.makeText(RegisterPage.this,msg1,Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
-                                        Intent intent = new Intent(RegisterPage.this,HomePage.class);
+                                        Intent intent = new Intent(RegisterPage.this,LoginPage.class);
                                         startActivity(intent);
 
                                     }
