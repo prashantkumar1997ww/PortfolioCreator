@@ -84,7 +84,7 @@
             <ListView
                 android:id="@+id/listView_lv"
                 android:layout_width="match_parent"
-                android:dividerHeight="2dp"
+                android:dividerHeight="0dp"
                 android:layout_height="150dp"
                 android:nestedScrollingEnabled="true"
                 />

@@ -166,43 +166,44 @@ public class MainActivity extends AppCompatActivity {
 
                 //Progress Bar
                 progressDialog = new ProgressDialog(MainActivity.this);
+                progressDialog.setMessage("Please wait while your portfolio is being created, it might take some time due to server downtime");
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progress_dialog);
                 progressDialog.getWindow().setBackgroundDrawableResource(
                         android.R.color.transparent
                 );
 
-                JSONObject mainJson  = new JSONObject();
+                ListElementsArrayList.forEach((s) -> {
+                    Log.d("Tag",s);
+                    String skill,desc;
+                    skill = s.split("\n")[0];
+                    desc = s.split("\n")[2];
+                    try {
+                        skillJson.put(skill,desc);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
+                ListElementsArrayList1.forEach((s) -> {
+                    Log.d("Tag",s);
+                    String job_type,detail;
+                    job_type = s.split("\n")[0];
+                    detail = s.split("\n")[2];
+                    try {
+                        expJson.put(job_type,detail);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
 
+                JSONObject mainJson  = new JSONObject();
                 try {
                     mainJson.put("image",image2);
                     mainJson.put("about",about.getText().toString());
 
-                    ListElementsArrayList.forEach((s) -> {
-                        Log.d("Tag",s);
-                        String skill,desc;
-                        skill = s.split("\n")[0];
-                        desc = s.split("\n")[2];
-                        try {
-                            skillJson.put(skill,desc);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    });
                     mainJson.put("skills",skillJson);
 
 
-                    ListElementsArrayList1.forEach((s) -> {
-                        Log.d("Tag",s);
-                        String job_type,detail;
-                        job_type = s.split("\n")[0];
-                        detail = s.split("\n")[2];
-                        try {
-                            expJson.put(job_type,detail);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    });
                     mainJson.put("experience",expJson);
 
 
@@ -358,11 +359,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void deleteCurrent(View v){
         ViewGroup prnt = (ViewGroup) v.getParent();
+        ViewGroup superParent = (ViewGroup) prnt.getParent().getParent();
         TextView txtv = (TextView) prnt.getChildAt(0);
-        ListElementsArrayList.remove(txtv.getText().toString());
-        adapter.notifyDataSetChanged();
-        ListElementsArrayList1.remove(txtv.getText().toString());
-        adapter1.notifyDataSetChanged();
+        if(superParent.getId() == R.id.listView_lv){
+            ListElementsArrayList.remove(txtv.getText().toString());
+            adapter.notifyDataSetChanged();
+        }
+        else{
+            ListElementsArrayList1.remove(txtv.getText().toString());
+            adapter1.notifyDataSetChanged();
+        }
         Log.d("Delete Method", "deleteCurrent: "+txtv.getText().toString());
     }
 

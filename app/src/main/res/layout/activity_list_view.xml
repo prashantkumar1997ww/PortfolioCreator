@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fffde7"
-    android:padding="5dp"
-    android:layout_gravity="center">
-
-<RelativeLayout
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:padding="5dp">
+    android:layout_gravity="center"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="#80CBC4"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="5dp">
 
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="11dp"
-        android:text="Medium \n Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/delete_icon"
-        android:onClick="deleteCurrent"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="11dp"
-        android:padding="5dp"
-        android:src="@drawable/delete" />
-
-</RelativeLayout>
+        android:gravity="center">
 
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="11dp"
+            android:text="Medium \n Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/delete_icon"
+            android:onClick="deleteCurrent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="11dp"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/delete" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
