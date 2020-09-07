@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                String url ="https://ad1f06dcf937.ngrok.io/storeresume";
+                String url ="https://portfolio-v0.herokuapp.com/storeresume";
 
                 JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, mainJson,
                         new Response.Listener<JSONObject>() {
