@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                String url ="https://portfolio-v0.herokuapp.com/storeresume";
+                String url ="https://ad1f06dcf937.ngrok.io/storeresume";
 
                 JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, mainJson,
                         new Response.Listener<JSONObject>() {
@@ -369,7 +369,6 @@ public class MainActivity extends AppCompatActivity {
             ListElementsArrayList1.remove(txtv.getText().toString());
             adapter1.notifyDataSetChanged();
         }
-        Log.d("Delete Method", "deleteCurrent: "+txtv.getText().toString());
     }
 
 
@@ -380,7 +379,6 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.example_menu, menu);
         return true;
     }
-
 
 
 

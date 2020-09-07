@@ -8,10 +8,25 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomePage extends AppCompatActivity {
 
@@ -43,7 +58,6 @@ public class HomePage extends AppCompatActivity {
         final String sUsername = sharedPreferences.getString(KEY_USERNAME,null);
         final String sPassword = sharedPreferences.getString(KEY_PASSWORD,null);
         final String sLink = sharedPreferences.getString(KEY_SITELINK,null);
-
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
