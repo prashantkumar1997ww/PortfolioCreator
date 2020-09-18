@@ -181,14 +181,20 @@ public class EditPortfolio extends AppCompatActivity {
 //                          EditText
                             about.setText(obj.get("about").toString());
                             Log.d("TAG",obj.get("about").toString());
+
+
                             JSONObject getskills = (JSONObject) obj.get("skills");
                             Iterator<String> keys = getskills.keys();
-
-                            while(keys.hasNext()) {
+                            while(keys.hasNext())
+                            {
                                 String key = keys.next();
                                 Log.d("TAG",key + " : " + getskills.get(key).toString());
                             }
-                        } catch (JSONException e) {
+
+
+                        }
+                        catch (JSONException e)
+                        {
                             e.printStackTrace();
                         }
                     }
