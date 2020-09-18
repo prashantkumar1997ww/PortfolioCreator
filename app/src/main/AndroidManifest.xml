@@ -12,17 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".EditPortfolio"
+            android:label="Edit Portfolio">
+        </activity>
+        <activity
             android:name=".ProfilePage"
             android:label="Profile Page"
-            android:parentActivityName=".HomePage"></activity>
+            android:parentActivityName=".HomePage" />
         <activity
             android:name=".LoginPage"
             android:label="Login Page"
-            android:parentActivityName=".HomePage"></activity>
+            android:parentActivityName=".HomePage" />
         <activity
             android:name=".RegisterPage"
             android:label="Registration Page"
-            android:parentActivityName=".HomePage"></activity>
+            android:parentActivityName=".HomePage" />
         <activity android:name=".HomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +37,7 @@
         <activity
             android:name=".MainActivity"
             android:label="Create Portfolio"
-            android:parentActivityName=".HomePage"></activity>
+            android:parentActivityName=".HomePage" />
     </application>
 
 </manifest>
