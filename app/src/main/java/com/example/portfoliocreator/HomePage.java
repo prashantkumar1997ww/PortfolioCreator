@@ -83,10 +83,12 @@ public class HomePage extends AppCompatActivity {
                     Intent intent = new Intent(HomePage.this, MainActivity.class);
                     startActivity(intent);
                 }
-//                if(sLink != null)
-//                {
+                if(sLink != null)
+                {
+                    Intent intent = new Intent(HomePage.this, MainActivity.class);
+                    startActivity(intent);
 //                    Toast.makeText(HomePage.this,"Portfolio Already Created \n Edit Your Portfolio", Toast.LENGTH_SHORT).show();
-//                }
+                }
                 if(sUsername == null && sName == null)
                 {
                     Toast.makeText(HomePage.this,"First Login", Toast.LENGTH_SHORT).show();
@@ -103,12 +105,12 @@ public class HomePage extends AppCompatActivity {
                     Intent intent = new Intent(HomePage.this, EditPortfolio.class);
                     startActivity(intent);
                 }
-//                if(sLink == null)
-//                {
+                if(sLink != null)
+                {
 //                    Toast.makeText(HomePage.this,"First Create Portfolio", Toast.LENGTH_SHORT).show();
-////                    Intent intent = new Intent(HomePage.this, HomePage.class);
-////                    startActivity(intent);
-//                }
+                    Intent intent = new Intent(HomePage.this, EditPortfolio.class);
+                    startActivity(intent);
+                }
             }
         });
 

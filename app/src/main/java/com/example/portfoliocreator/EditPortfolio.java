@@ -178,9 +178,10 @@ public class EditPortfolio extends AppCompatActivity {
                     {
                         try {
                             JSONObject obj = (JSONObject) response.get("obj");
-//                          EditText
+                            Log.d("TAG",response.get("obj").toString());
+
                             about.setText(obj.get("about").toString());
-                            Log.d("TAG",obj.get("about").toString());
+//                            Log.d("TAG",obj.get("about").toString());
 
 
                             JSONObject getskills = (JSONObject) obj.get("skills");
@@ -188,9 +189,45 @@ public class EditPortfolio extends AppCompatActivity {
                             while(keys.hasNext())
                             {
                                 String key = keys.next();
-                                Log.d("TAG",key + " : " + getskills.get(key).toString());
+                                ListElementsArrayList.add(key + "\n\n" + getskills.get(key).toString());
+                                adapter.notifyDataSetChanged();
+//                                Log.d("TAG",key + " : " + getskills.get(key).toString());
                             }
 
+
+                            JSONObject getexperience = (JSONObject) obj.get("experience");
+                            Iterator<String> keys1 = getexperience.keys();
+                            while(keys1.hasNext())
+                            {
+                                String key1 = keys1.next();
+                                ListElementsArrayList1.add(key1 + "\n\n" + getexperience.get(key1).toString());
+                                adapter1.notifyDataSetChanged();
+//                                Log.d("TAG",key1 + " : " + getexperience.get(key1).toString());
+                            }
+
+
+                            JSONObject getcollege = (JSONObject) obj.get("college");
+                            clgName.setText(getcollege.get("name").toString());
+                            clgDegree.setText(getcollege.get("address").toString());
+                            clgYear.setText(getcollege.get("marks").toString());
+
+
+                            JSONObject get12school = (JSONObject) obj.get("twelth");
+                            school12Name.setText(get12school.get("name").toString());
+                            board12.setText(get12school.get("address").toString());
+                            year12.setText(get12school.get("marks").toString());
+
+
+                            JSONObject get10school = (JSONObject) obj.get("tenth");
+                            school10Name.setText(get10school.get("name").toString());
+                            board10.setText(get10school.get("address").toString());
+                            year10.setText(get10school.get("marks").toString());
+
+
+                            JSONObject getlink = (JSONObject) obj.get("links");
+                            git.setText(getlink.get("github").toString());
+                            fb.setText(getlink.get("facebook").toString());
+                            linkedIn.setText(getlink.get("linkedin").toString());
 
                         }
                         catch (JSONException e)
@@ -201,7 +238,7 @@ public class EditPortfolio extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("TAG",error.toString());
+                Log.d("TAG Error",error.toString());
             }
         }){
 //            @Override
@@ -233,12 +270,11 @@ public class EditPortfolio extends AppCompatActivity {
                 progressDialog.setMessage("Please wait while your portfolio is being created, it might take some time due to server downtime");
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progress_dialog);
-                progressDialog.getWindow().setBackgroundDrawableResource(
-                        android.R.color.transparent
-                );
+                progressDialog.getWindow().setBackgroundDrawableResource
+                        (android.R.color.transparent);
 
                 ListElementsArrayList.forEach((s) -> {
-                    Log.d("Tag",s);
+//                    Log.d("Tag",s);
                     String skill,desc;
                     skill = s.split("\n")[0];
                     desc = s.split("\n")[2];
@@ -249,7 +285,7 @@ public class EditPortfolio extends AppCompatActivity {
                     }
                 });
                 ListElementsArrayList1.forEach((s) -> {
-                    Log.d("Tag",s);
+//                    Log.d("Tag",s);
                     String job_type,detail;
                     job_type = s.split("\n")[0];
                     detail = s.split("\n")[2];
@@ -350,8 +386,8 @@ public class EditPortfolio extends AppCompatActivity {
 
                 jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
                         10000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                        3,
+                        3));
 
 
                 queue.add(jsonRequest);

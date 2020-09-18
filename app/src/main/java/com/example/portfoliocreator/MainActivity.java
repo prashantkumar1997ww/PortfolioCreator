@@ -287,8 +287,8 @@ public class MainActivity extends AppCompatActivity {
 
                 jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
                         10000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                        3,
+                        3));
 
 
                 queue.add(jsonRequest);

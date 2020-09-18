@@ -153,8 +153,8 @@ public class LoginPage extends AppCompatActivity {
 
                     stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                             5000,
-                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                            3,
+                            3));
                     queue.add(stringRequest);
                 }
 
