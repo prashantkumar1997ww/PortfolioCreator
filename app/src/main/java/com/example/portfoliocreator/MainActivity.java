@@ -369,7 +369,6 @@ public class MainActivity extends AppCompatActivity {
             ListElementsArrayList1.remove(txtv.getText().toString());
             adapter1.notifyDataSetChanged();
         }
-        Log.d("Delete Method", "deleteCurrent: "+txtv.getText().toString());
     }
 
 
@@ -380,7 +379,6 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.example_menu, menu);
         return true;
     }
-
 
 
 
