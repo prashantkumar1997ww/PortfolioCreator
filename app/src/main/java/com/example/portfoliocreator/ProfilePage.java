@@ -45,7 +45,7 @@ public class ProfilePage extends AppCompatActivity {
         {
             username.setText("Username = "+sUsername);
             name.setText("Name = "+sName);
-            link.setText("Site Link = "+sLink);
+            link.setText("Website Link :-\n"+sLink);
         }
 
         logout.setOnClickListener(new View.OnClickListener() {

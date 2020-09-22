@@ -191,12 +191,13 @@ public class EditPortfolio extends AppCompatActivity {
                                 String msg = null;
                                 try {
                                     msg = (String) response.get("msg");
-                                    Toast.makeText(EditPortfolio.this,msg, Toast.LENGTH_SHORT).show();
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                                 if(msg.equals("success"))
                                 {
+                                    Toast.makeText(EditPortfolio.this,msg, Toast.LENGTH_SHORT).show();
                                     String sitelink = null;
                                     try {
                                         sitelink = (String) response.get("sitelink");
@@ -211,12 +212,15 @@ public class EditPortfolio extends AppCompatActivity {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString(KEY_SITELINK,sitelink);
                                     editor.apply();
+                                    Intent intent = new Intent(EditPortfolio.this,HomePage.class);
+                                    startActivity(intent);
                                 }
-                                else {
+                                else
+                                {
                                     Toast.makeText(EditPortfolio.this,msg, Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(EditPortfolio.this,HomePage.class);
+                                    startActivity(intent);
                                 }
-                                Intent intent = new Intent(EditPortfolio.this,HomePage.class);
-                                startActivity(intent);
                             }
                         }, new Response.ErrorListener() {
                     @Override
