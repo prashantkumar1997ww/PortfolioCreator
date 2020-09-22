@@ -16,11 +16,13 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +51,8 @@ import java.util.Map;
 public class EditPortfolio extends AppCompatActivity {
 
 
+    ImageButton delete_btn;
+
     //Progress Bar
     ProgressDialog progressDialog;
 
@@ -71,7 +75,7 @@ public class EditPortfolio extends AppCompatActivity {
     EditText school12Name, board12, year12, Location12, Marks12, MarksType12;
     EditText git, fb, linkedIn;
 
-    Button create;
+    Button edit;
 
 
 
@@ -107,7 +111,10 @@ public class EditPortfolio extends AppCompatActivity {
         JSONObject expJson = new JSONObject();
         JSONObject skillJson = new JSONObject();
 
-        about = (EditText) findViewById(R.id.edt_about);
+
+        delete_btn = findViewById(R.id.del_btn);
+
+        about = findViewById(R.id.edt_about);
 
         //Clg Details
         clgName = findViewById(R.id.edt_clgName);
@@ -133,18 +140,19 @@ public class EditPortfolio extends AppCompatActivity {
         Marks12 = findViewById(R.id.edt_12Marks);
         MarksType12 = findViewById(R.id.edt_12Marks_type);
 
+        // link details
         git = findViewById(R.id.edt_git);
         fb = findViewById(R.id.edt_fb);
         linkedIn = findViewById(R.id.edt_linkedIn);
 
-        create = findViewById(R.id.btn_create);
+        edit = findViewById(R.id.btn_edit);
 
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-        final String sToken = sharedPreferences.getString(KEY_TOKEN,null);
-        final String sUsername = sharedPreferences.getString(KEY_USERNAME,null);
-        Log.d("Tag","token "+sToken);
-        Log.d("Tag","Username "+sUsername);
+        final String[] sToken = {sharedPreferences.getString(KEY_TOKEN, null)};
+        final String[] sUsername = {sharedPreferences.getString(KEY_USERNAME, null)};
+        Log.d("Tag","token "+ sToken[0]);
+        Log.d("Tag","Username "+ sUsername[0]);
 
 
 
@@ -160,12 +168,81 @@ public class EditPortfolio extends AppCompatActivity {
         });
 
 
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RequestQueue queue = Volley.newRequestQueue(EditPortfolio.this);
+                JSONObject delJson  = new JSONObject();
+                try
+                {
+                    delJson.put("x-auth-token", sToken[0]);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String url3 ="https://portfolio-v0.herokuapp.com/deleteresume";
+
+                JsonObjectRequest delRequest = new JsonObjectRequest(Request.Method.POST, url3, delJson,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response)
+                            {
+                                Log.d("TAG Del Response",response.toString());
+                                String msg = null;
+                                try {
+                                    msg = (String) response.get("msg");
+                                    Toast.makeText(EditPortfolio.this,msg, Toast.LENGTH_SHORT).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                if(msg.equals("success"))
+                                {
+                                    String sitelink = null;
+                                    try {
+                                        sitelink = (String) response.get("sitelink");
+                                        sitelink = "null";
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    //link.setText("Link :- "+sitelink);
+
+                                    sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString(KEY_SITELINK,sitelink);
+                                    editor.apply();
+                                }
+                                else {
+                                    Toast.makeText(EditPortfolio.this,msg, Toast.LENGTH_SHORT).show();
+                                }
+                                Intent intent = new Intent(EditPortfolio.this,HomePage.class);
+                                startActivity(intent);
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("TAG Error",error.toString());
+                    }
+                }){
+                };
+
+                delRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        20000,
+                        3,
+                        3));
+
+                queue.add(delRequest);
+
+            }
+        });
+
+
         // Get resume data from database
         RequestQueue queue = Volley.newRequestQueue(EditPortfolio.this);
         JSONObject getJson  = new JSONObject();
         try
         {
-            getJson.put("x-auth-token", sToken);
+            getJson.put("x-auth-token", sToken[0]);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -208,20 +285,30 @@ public class EditPortfolio extends AppCompatActivity {
 
                             JSONObject getcollege = (JSONObject) obj.get("college");
                             clgName.setText(getcollege.get("name").toString());
-                            clgDegree.setText(getcollege.get("address").toString());
-                            clgYear.setText(getcollege.get("marks").toString());
+                            clgLocation.setText(getcollege.get("address").toString());
+                            clgDegree.setText(getcollege.get("degree").toString());
+                            clgMarks.setText(getcollege.get("marks").toString());
+                            clgMarksType.setText(getcollege.get("metric").toString());
+                            clgYear.setText(getcollege.get("year").toString());
 
 
                             JSONObject get12school = (JSONObject) obj.get("twelth");
                             school12Name.setText(get12school.get("name").toString());
-                            board12.setText(get12school.get("address").toString());
-                            year12.setText(get12school.get("marks").toString());
+                            board12.setText(get12school.get("degree").toString());
+                            year12.setText(get12school.get("year").toString());
+                            Location12.setText(get12school.get("address").toString());
+                            Marks12.setText(get12school.get("marks").toString());
+                            MarksType12.setText(get12school.get("metric").toString());
+
 
 
                             JSONObject get10school = (JSONObject) obj.get("tenth");
                             school10Name.setText(get10school.get("name").toString());
-                            board10.setText(get10school.get("address").toString());
-                            year10.setText(get10school.get("marks").toString());
+                            board10.setText(get10school.get("degree").toString());
+                            year10.setText(get10school.get("year").toString());
+                            Location10.setText(get10school.get("address").toString());
+                            Marks10.setText(get10school.get("marks").toString());
+                            MarksType10.setText(get10school.get("metric").toString());
 
 
                             JSONObject getlink = (JSONObject) obj.get("links");
@@ -254,13 +341,10 @@ public class EditPortfolio extends AppCompatActivity {
                 3,
                 3));
 
-
         queue.add(getRequest);
 
 
-
-
-        create.setOnClickListener(new View.OnClickListener() {
+        edit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
@@ -307,25 +391,35 @@ public class EditPortfolio extends AppCompatActivity {
                     mainJson.put("experience",expJson);
 
 
-                    mainJson.put("x-auth-token", sToken);
+                    mainJson.put("x-auth-token", sToken[0]);
+
 
                     JSONObject college = new JSONObject();
                     college.put("name",clgName.getText().toString());
-                    college.put("address",clgDegree.getText().toString());
-                    college.put("marks",clgYear.getText().toString());
+                    college.put("address",clgLocation.getText().toString());
+                    college.put("degree",clgDegree.getText().toString());
+                    college.put("marks",clgMarks.getText().toString());
+                    college.put("metric",clgMarksType.getText().toString());
+                    college.put("year",clgYear.getText().toString());
                     mainJson.put("college",college);
 
                     JSONObject school12 = new JSONObject();
                     school12.put("name",school12Name.getText().toString());
-                    school12.put("address",board12.getText().toString());
-                    school12.put("marks",year12.getText().toString());
+                    school12.put("address",Location12.getText().toString());
+                    school12.put("degree",board12.getText().toString());
+                    school12.put("marks",Marks12.getText().toString());
+                    school12.put("metric",MarksType12.getText().toString());
+                    school12.put("year",year12.getText().toString());
                     mainJson.put("twelth",school12);
 
 
                     JSONObject school10 = new JSONObject();
                     school10.put("name",school10Name.getText().toString());
-                    school10.put("address",board10.getText().toString());
-                    school10.put("marks",year10.getText().toString());
+                    school10.put("address",Location10.getText().toString());
+                    school10.put("degree",board10.getText().toString());
+                    school10.put("marks",Marks10.getText().toString());
+                    school10.put("metric",MarksType10.getText().toString());
+                    school10.put("year",year10.getText().toString());
                     mainJson.put("tenth",school10);
 
                     JSONObject link = new JSONObject();
@@ -358,7 +452,9 @@ public class EditPortfolio extends AppCompatActivity {
                                     }
                                     Toast.makeText(EditPortfolio.this,sitelink, Toast.LENGTH_SHORT).show();
                                     //link.setText("Link :- "+sitelink);
-
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(EditPortfolio.this,ProfilePage.class);
+                                    startActivity(intent);
                                     sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString(KEY_SITELINK,sitelink);
@@ -367,7 +463,6 @@ public class EditPortfolio extends AppCompatActivity {
                                 else{
                                     Toast.makeText(EditPortfolio.this,msg, Toast.LENGTH_SHORT).show();
                                 }
-                                progressDialog.dismiss();
                                 Log.d("TAG",response.toString());
                             }
                         }, new Response.ErrorListener() {
@@ -393,7 +488,6 @@ public class EditPortfolio extends AppCompatActivity {
                 queue.add(jsonRequest);
 
             }
-
         });
 
 
@@ -452,9 +546,10 @@ public class EditPortfolio extends AppCompatActivity {
         });
 
 
-
-
     }
+
+
+
 
     public void deleteCurrent(View v){
         ViewGroup prnt = (ViewGroup) v.getParent();
@@ -473,12 +568,12 @@ public class EditPortfolio extends AppCompatActivity {
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.example_menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_editor, menu);
+//        return true;
+//    }
 
 
 

@@ -3,25 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <item
-        android:id="@+id/action_save"
-        android:title="Save"
-        android:icon="@drawable/ic_done"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/action_insert_dummy_data"
-        android:title="Insert Dummy Data"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_delete_all_entries"
-        android:title="Delete All Entries"
-        app:showAsAction="never" />
-
     <item
         android:id="@+id/action_delete"
         android:title="Delete"
-        app:showAsAction="never"/>
+        android:icon="@drawable/delete_ic"
+        app:showAsAction="always"/>
+
+<!--    <item-->
+<!--        android:title=""-->
+<!--        android:icon="@drawable/delete"-->
+<!--        app:showAsAction="always"/>-->
 
 </menu>

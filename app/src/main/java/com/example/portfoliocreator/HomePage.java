@@ -96,19 +96,19 @@ public class HomePage extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sUsername != null && sName != null && sLink == null)
+                if(sUsername == null && sName == null)
                 {
-                    Toast.makeText(HomePage.this,"First Create Portfolio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomePage.this,"First Login \n Then Create Portfolio", Toast.LENGTH_SHORT).show();
                 }
-                if(sLink != null)
+                else //if(sLink != null || sLink == null)
                 {
                     Intent intent = new Intent(HomePage.this, EditPortfolio.class);
                     startActivity(intent);
                 }
-                if(sUsername == null && sName == null)
-                {
-                    Toast.makeText(HomePage.this,"First Login", Toast.LENGTH_SHORT).show();
-                }
+//                else
+//                {
+//                    Toast.makeText(HomePage.this,"First Login", Toast.LENGTH_SHORT).show();
+//                }
 
             }
         });

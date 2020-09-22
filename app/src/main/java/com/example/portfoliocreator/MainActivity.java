@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         JSONObject expJson = new JSONObject();
         JSONObject skillJson = new JSONObject();
 
-        about = (EditText) findViewById(R.id.edt_about);
+        about = findViewById(R.id.edt_about);
 
         //Clg Details
         clgName = findViewById(R.id.edt_clgName);
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 );
 
                 ListElementsArrayList.forEach((s) -> {
-                    Log.d("Tag",s);
+//                    Log.d("Tag",s);
                     String skill,desc;
                     skill = s.split("\n")[0];
                     desc = s.split("\n")[2];
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 ListElementsArrayList1.forEach((s) -> {
-                    Log.d("Tag",s);
+//                    Log.d("Tag",s);
                     String job_type,detail;
                     job_type = s.split("\n")[0];
                     detail = s.split("\n")[2];
@@ -211,21 +211,30 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONObject college = new JSONObject();
                     college.put("name",clgName.getText().toString());
-                    college.put("address",clgDegree.getText().toString());
-                    college.put("marks",clgYear.getText().toString());
+                    college.put("address",clgLocation.getText().toString());
+                    college.put("degree",clgDegree.getText().toString());
+                    college.put("marks",clgMarks.getText().toString());
+                    college.put("metric",clgMarksType.getText().toString());
+                    college.put("year",clgYear.getText().toString());
                     mainJson.put("college",college);
 
                     JSONObject school12 = new JSONObject();
                     school12.put("name",school12Name.getText().toString());
-                    school12.put("address",board12.getText().toString());
-                    school12.put("marks",year12.getText().toString());
+                    school12.put("address",Location12.getText().toString());
+                    school12.put("degree",board12.getText().toString());
+                    school12.put("marks",Marks12.getText().toString());
+                    school12.put("metric",MarksType12.getText().toString());
+                    school12.put("year",year12.getText().toString());
                     mainJson.put("twelth",school12);
 
 
                     JSONObject school10 = new JSONObject();
                     school10.put("name",school10Name.getText().toString());
-                    school10.put("address",board10.getText().toString());
-                    school10.put("marks",year10.getText().toString());
+                    school10.put("address",Location10.getText().toString());
+                    school10.put("degree",board10.getText().toString());
+                    school10.put("marks",Marks10.getText().toString());
+                    school10.put("metric",MarksType10.getText().toString());
+                    school10.put("year",year10.getText().toString());
                     mainJson.put("tenth",school10);
 
                     JSONObject link = new JSONObject();
@@ -259,6 +268,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                             Toast.makeText(MainActivity.this,sitelink, Toast.LENGTH_SHORT).show();
                             //link.setText("Link :- "+sitelink);
+                            progressDialog.dismiss();
+                            Intent intent = new Intent(MainActivity.this,ProfilePage.class);
+                            startActivity(intent);
 
                             sharedPreferences =  getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -268,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                         else{
                             Toast.makeText(MainActivity.this,msg, Toast.LENGTH_SHORT).show();
                         }
-                        progressDialog.dismiss();
+
                         Log.d("TAG",response.toString());
                     }
                 }, new Response.ErrorListener() {
@@ -352,10 +364,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
+
+
+
+
 
     public void deleteCurrent(View v){
         ViewGroup prnt = (ViewGroup) v.getParent();

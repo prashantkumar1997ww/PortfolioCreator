@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".EditPortfolio"
-            android:label="Edit Portfolio">
+            android:label="Edit Portfolio"
+            android:parentActivityName=".HomePage">
         </activity>
         <activity
             android:name=".ProfilePage"

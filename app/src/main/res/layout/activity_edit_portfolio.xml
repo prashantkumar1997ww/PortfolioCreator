@@ -14,6 +14,29 @@
         android:padding="20dp"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/del_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/delete"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DELETE"
+                android:layout_below="@+id/del_btn"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
         <ImageView
             android:id="@+id/img_view"
             android:layout_width="200dp"
@@ -598,7 +621,7 @@
 
 
         <Button
-            android:id="@+id/btn_create"
+            android:id="@+id/btn_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="EDIT"
@@ -606,6 +629,7 @@
             android:textStyle="bold"
             android:background="@color/colorAccent"
             android:layout_gravity="center"/>
+
 
     </LinearLayout>
 
