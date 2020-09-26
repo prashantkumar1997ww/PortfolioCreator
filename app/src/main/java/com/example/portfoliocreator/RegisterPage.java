@@ -93,7 +93,7 @@ public class RegisterPage extends AppCompatActivity {
                 {
 
                     RequestQueue queue = Volley.newRequestQueue(RegisterPage.this);
-                    String url ="https://portfolio-v0.herokuapp.com/register_user";
+                    String url ="https://portfolio-v0.herokuapp.com/api/register_user";
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
@@ -102,7 +102,7 @@ public class RegisterPage extends AppCompatActivity {
                                     String msg1 = msg[3];
                                     Log.d("TAG0", response);
                                     Log.d("TAG", msg1);
-                                    if(msg1.equals("successfull"))
+                                    if(msg1.equals("success"))
                                     {
                                         Toast.makeText(RegisterPage.this,msg1,Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();

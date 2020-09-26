@@ -95,7 +95,7 @@ public class LoginPage extends AppCompatActivity {
                 {
 
                     RequestQueue queue = Volley.newRequestQueue(LoginPage.this);
-                    String url ="https://portfolio-v0.herokuapp.com/login_user";
+                    String url ="https://portfolio-v0.herokuapp.com/api/login_user";
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
@@ -128,8 +128,6 @@ public class LoginPage extends AppCompatActivity {
                                         Log.d("TAG", msg1);
                                         Toast.makeText(LoginPage.this,msg1,Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
-                                        Intent intent = new Intent(LoginPage.this,LoginPage.class);
-                                        startActivity(intent);
                                     }
                                 }
 

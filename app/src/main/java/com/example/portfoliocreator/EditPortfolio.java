@@ -180,7 +180,7 @@ public class EditPortfolio extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                String url3 ="https://portfolio-v0.herokuapp.com/delete_resume";
+                String url3 ="https://portfolio-v0.herokuapp.com/api/delete_resume";
 
                 JsonObjectRequest delRequest = new JsonObjectRequest(Request.Method.POST, url3, delJson,
                         new Response.Listener<JSONObject>() {
@@ -250,7 +250,7 @@ public class EditPortfolio extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        String url2 ="https://portfolio-v0.herokuapp.com/get_resume";
+        String url2 ="https://portfolio-v0.herokuapp.com/api/get_resume";
 
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, url2, getJson,
                 new Response.Listener<JSONObject>() {
@@ -434,7 +434,7 @@ public class EditPortfolio extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                String url ="https://portfolio-v0.herokuapp.com/edit_resume";
+                String url ="https://portfolio-v0.herokuapp.com/api/edit_resume";
 
                 JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, mainJson,
                         new Response.Listener<JSONObject>() {
