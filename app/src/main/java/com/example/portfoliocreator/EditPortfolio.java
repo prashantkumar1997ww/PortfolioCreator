@@ -167,7 +167,7 @@ public class EditPortfolio extends AppCompatActivity {
             }
         });
 
-
+             // Delete resume
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,7 +201,7 @@ public class EditPortfolio extends AppCompatActivity {
                                     String sitelink = null;
                                     try {
                                         sitelink = (String) response.get("sitelink");
-                                        sitelink = "null";
+                                        sitelink = " ";
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();

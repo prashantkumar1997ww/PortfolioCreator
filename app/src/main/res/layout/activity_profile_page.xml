@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorAccent"
     android:gravity="center"
     tools:context=".ProfilePage">
 
@@ -15,18 +16,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        android:text="Name :- "
-        android:textColor="@android:color/black"
-        android:textSize="18dp"/>
+        android:text="Welcome,"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textSize="30dp"/>
     <TextView
         android:id="@+id/txt_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        android:text="Username :- "
-        android:textColor="@android:color/black"
-        android:textSize="18dp"/>
+        android:text="Username : "
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
 
 
     <TextView
@@ -35,8 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:textIsSelectable="true"
-        android:textColor="@android:color/black"
-        android:textSize="18dp"/>
+        android:text="Site : "
+        android:textColor="@android:color/white"
+        android:textSize="13dp"
+        android:textStyle="bold"/>
 
 
     <Button
@@ -45,9 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        android:text="Sign Out"
+        android:text="Log Out"
         android:textColor="#fff"
         android:textStyle="bold"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorPrimary"/>
 
 </LinearLayout>

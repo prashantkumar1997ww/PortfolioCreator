@@ -43,9 +43,9 @@ public class ProfilePage extends AppCompatActivity {
 
         if(sUsername != null || sName != null || sLink != null)
         {
-            username.setText("Username = "+sUsername);
-            name.setText("Name = "+sName);
-            link.setText("Website Link :-\n"+sLink);
+            username.setText("Username : "+sUsername);
+            name.setText("Welcome,\n"+sName);
+            link.setText("Site : "+sLink);
         }
 
         logout.setOnClickListener(new View.OnClickListener() {
