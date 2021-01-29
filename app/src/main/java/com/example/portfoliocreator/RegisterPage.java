@@ -93,7 +93,7 @@ public class RegisterPage extends AppCompatActivity {
                 {
 
                     RequestQueue queue = Volley.newRequestQueue(RegisterPage.this);
-                    String url ="https://portfolio-v0.herokuapp.com/api/register_user";
+                    String url ="https://rvstowrn-resumebackend.zeet.app/api/register_user";
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
